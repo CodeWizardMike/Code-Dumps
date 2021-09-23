@@ -1,0 +1,84 @@
+This is code that I made from looking at some old code in a coding game called scratch I made a long time ago.
+
+#include <SFML/Graphics.hpp>
+
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "test1", sf::Style::Default);
+    window.setFramerateLimit(60);
+
+    sf::RectangleShape background(sf::Vector2f(1920.f, 1080.f));
+    sf::RectangleShape Character(sf::Vector2f(50.f, 50.f));
+
+    background.setFillColor(sf::Color::White);
+
+    double CharX;
+    double CharY;
+    double InTheAir;
+    double Momentum;
+    double Speed;
+    double Gravity;
+
+    Gravity = 1.8;
+    CharX = 500;
+    CharY = 500;
+    InTheAir = 0;
+    Momentum = 0.0;
+    Speed = 0.0;
+    
+  
+
+    sf::Texture Right1;
+    sf::Texture Left1;
+    Right1.loadFromFile("Right1.png");
+    Left1.loadFromFile("Left1.png");
+
+   
+
+    Character.setTexture(&Left1);
+
+
+    while (window.isOpen())
+    {
+        window.setFramerateLimit(60);
+        window.clear();
+       
+    
+        CharY = CharY + Speed;
+        Speed = Speed + Momentum;
+        Momentum = Momentum * Gravity;
+
+
+
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                window.close();
+            }
+            
+            if (CharY < 1030)
+            {
+                Momentum = 1;
+            }
+            else
+            {
+                Momentum = 0;
+                Speed = Speed * -0.95;
+                //Speed = 0;
+                Momentum = 1;
+
+            }
+         
+           
+        
+
+            Character.setPosition(CharX, CharY);
+        
+        window.draw(background);
+        window.draw(Character);
+        window.display();
+    }
+
+    return 0;
+}
+
