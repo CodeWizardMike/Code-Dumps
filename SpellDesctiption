@@ -1,0 +1,371 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include<sstream>
+#include <vector>
+
+//for program off
+bool keeprunning = true;
+//for program off, when it is false the program is turned off
+
+double L1;
+double L1Center;
+
+bool inGMmode = false;
+
+bool iskeypressed = true;
+
+std::string letterinput;
+
+//current input is used for moving between different components, so that they don't get erased.
+std::string currentinput = "";
+
+std::string TextParse = "TEST";
+
+//this is the window resolution. by default it is 1080x1080 so i can test stuff
+int windowX = 1080;
+int windowY = 1080;
+
+std::string windowname = "Player Mode";
+
+//this is how much DELAY is used between keystroked for text input. changing it to a lower amount will allow you to type quicker, but you can't hold the button down for long otherwise it will type the letter twice
+double textinputdelaytime = 0.3;
+
+
+//this is for the letterbuffer for text input. it is jus pre-defined so i can use it
+std::string letterbuffer = "";
+//this is for the letterbuffer for text input. it is jus pre-defined so i can use it
+
+std::string descriptiontext = "TEST";
+
+int main()
+{
+
+
+
+
+
+
+
+
+
+
+
+    //Program Start
+   /* std::cout "Which program are we running"
+    std::cin >> */
+
+    sf::Font font;
+    if (!font.loadFromFile("fonts/arial.ttf"))
+    {
+        // error...
+    }
+
+    sf::Text component1;
+    component1.setFont(font);
+    component1.setString("");
+    component1.setCharacterSize(64);
+
+    sf::Text description1;
+    description1.setFont(font);
+    description1.setString("");
+    description1.setCharacterSize(32);
+
+    
+
+
+
+
+
+
+
+    sf::RenderWindow window(sf::VideoMode(windowX, windowY), windowname);
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+
+
+
+
+
+
+
+    //this clock is used for the text input primarily. I don't think anything is bound to it.
+    sf::Clock inputclock;
+    inputclock.restart();
+    //this clock is used for the text input primarily. I don't think anything is bound to it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //This is the stuff for parsing the text from text files into a string that can be easily manipulated so that it can be displayed in SFML
+    //this code below is the code before I manipulated it to make it more simple maybe
+    /*std::ifstream firetextfile("descriptions/Fire.txt");
+    std::string firedesc;
+    std::ostringstream FD;
+    FD << firetextfile.rdbuf();
+    firedesc = FD.str();*/
+    //
+
+
+    //so I tested everything, and there is no way to simplify this. All of the things are going to need a custom one. This cannot be shortened.
+    std::ifstream firetextfile("descriptions/Fire.txt");
+    std::string firedesc;
+    std::ostringstream FD;
+    FD << firetextfile.rdbuf();
+    firedesc = FD.str();
+    //
+    std::ifstream watertextfile("descriptions/Water.txt");
+    std::string waterdesc;
+    std::ostringstream WD;
+    WD << watertextfile.rdbuf();
+    waterdesc = WD.str();
+
+    //descriptiontext = firedesc;
+
+
+
+
+
+    while (keeprunning == true)
+    {
+
+
+
+        L1 = component1.getLocalBounds().width;
+        L1Center = L1 / 2;
+        component1.setOrigin(L1Center, 10);
+
+        //more clock crap
+        sf::Time Elapsed1 = inputclock.getElapsedTime();
+        //more clock crap
+
+
+
+        component1.setPosition(540, 20);
+        description1.setPosition(6, 300);
+
+
+
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
+        {keeprunning = false;}
+
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Home)) & (inGMmode == false))
+        {
+            windowname = "Game Master Mode";
+            window.setTitle(windowname);
+            inGMmode = true;
+            std::cout << "gm";
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::End)) &(inGMmode == true))
+        {
+            windowname = "Player Mode";
+            window.setTitle(windowname);
+            inGMmode = false;
+            std::cout << "player";
+        }
+
+
+
+        //this is keyboard crap. The delaytime of allowed keyboard presses can be changed above
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "A";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::B) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "B";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::C) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "C";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "D";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::E) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "E";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::F) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "F";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::G) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "G";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::H) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "H";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::I) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "I";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::J) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "J";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::K) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "K";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::L) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "L";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::M) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "M";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::N) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "N";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::O) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "O";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::P) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "P";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Q) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "Q";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::R) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "R";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "S";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::T) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "T";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::U) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "U";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "V";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "W";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::X) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "X";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Y) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "Y";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Z) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "Z";
+            inputclock.restart();
+        }
+        //this is keyboard crap. The delaytime of allowed keyboard presses can be changed above
+
+        if (letterbuffer != "")
+        {
+            currentinput = currentinput + letterbuffer;
+            letterbuffer = "";
+
+        }
+
+        
+        
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            currentinput = "";
+
+            inputclock.restart();
+        }
+
+
+
+
+
+
+
+
+        TextParse = currentinput;
+
+
+
+
+        if (TextParse == "IGNI")
+        {
+            descriptiontext = firedesc;
+        }
+        if (TextParse == "WOW")
+        {
+            descriptiontext = waterdesc;
+        }
+
+
+
+        description1.setString(descriptiontext);
+        component1.setString(TextParse);
+        window.clear();
+        window.draw(component1);
+        window.draw(description1);
+        window.display();
+    }
+
+    return 0;
+}
