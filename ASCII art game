@@ -1,0 +1,735 @@
+ASCII Art Mini Spell Game
+
+game concept: uses simple graphics in console to do a game with spellcasting or something. I dunno
+
+graphics todo:
+Window Size - figure out how to resize window with commands at start. That will allow me to set the window size for the artwork that I’ll make in the console and whatnot. Very important. Also maybe something that forces the window to stay a certain size, or keeps resetting it to the original size.
+
+Refresh screen - figure out how to update the screen for actions.
+
+Simple Graphics API - there might be a simple graphics api I can learn… I dunno. Maybe legacy opengl.
+
+Graphics thingies - Cinder for C++, SFML, Simple2D,QT 4 GUI,Vulkan 
+
+
+Decision - Someone on reddit said SFML is probably the easiest to learn and use. Someone recommended it for a 7th grader in a reddit forum for its ease of use and abundance of simple tutorials. There is also tools available apparently to make it even easier to use
+
+How to install it (this is very useful. If it doesn’t work double check how you added everything. I screwed up like 5 times before getting it right.) - https://www.youtube.com/watch?v=YfMQyOw1zik
+sfml-graphics.lib; sfml-window.lib; sfml-system.lib; sfml-audio.lib; 
+
+
+tutorial For SFML - https://www.sfml-dev.org/tutorials/2.5/
+
+Here is the main Documentation for the commands for SFML as well as a really simple example of how some of the code works - https://www.sfml-dev.org/documentation/2.5.1/
+
+This video is how texturing works in SFML, also there is more video after it to fix the background and filling issues.
+https://www.youtube.com/watch?v=jJYHVQbZIfw
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Learnering:
+This code below is used to test to make sure that everything is configured correctly for SFML to work.
+
+
+#include <SFML/Graphics.hpp>
+
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+        window.draw(shape);
+        window.display();
+    }
+
+    return 0;
+}
+
+
+This code is something I’m working on and will come back to - 
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+
+int main()
+{
+sf::Window window(sf::VideoMode(800, 600), "My Thing", sf::Style::None);
+
+return 0;
+
+}
+
+
+This code is the first code modified by my understanding of the style function to produce the initial app window with the green circle, but it doesn’t have the border or X or close or minimize and stuff. Pretty neat.
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!",sf::Style::None);
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+        window.draw(shape);
+        window.display();
+    }
+
+    return 0;
+}
+
+
+
+
+
+This code below basically just opens a window, and then when you close it the application stop. The game loop is directly linked to the close button, so when you close the game, it’ll finish running the script and then give you the end result in the console.
+
+
+#include <SFML/Window.hpp>
+
+int main()
+{
+    sf::Window window(sf::VideoMode(800, 600), "My window");
+
+    // run the program as long as the window is open
+    while (window.isOpen())
+    {
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            // "close requested" event: we close the window
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+    }
+
+    return 0;
+}
+
+_____
+
+
+
+This code didn’t work for some reason. I’m sure it’ll be obvious why later - 
+
+#include <SFML/Graphics.hpp>
+
+int main()
+{
+    int A;
+    int B;
+    int C;
+    int D;
+    A = 1;
+    B = 2;
+    C = 1;
+    D = 1;
+    sf::RenderWindow window(sf::VideoMode(640, 480), "Test");
+  
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear(sf::Color::Black);
+        
+
+       /* if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            A = A - 1;
+
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            A = A + 1;
+
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+
+            B = B - 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+
+            B = B + 1;
+        }*/
+        sf::CircleShape shape(50.f);
+        shape.setFillColor(sf::Color(150, 50, 250));
+        shape.setPosition(A, B);
+       
+        sf::CircleShape Testshape(100.f);
+        Testshape.setFillColor(sf::Color::Green);
+
+
+        window.display();
+    }
+
+    return 0;
+}
+So this is the final rendition of the code that moves the blue square around, and it seems to work pretty good and I’m happy with it for now - 
+#include <SFML/Graphics.hpp>
+
+
+
+
+int main()
+{
+    int A;
+    int B;
+    int C;
+    C = 100;
+    A = 50;
+    B = 100;
+    sf::Texture testtexture;
+    testtexture.loadFromFile("Untitled.png");
+    
+    while(1 == 1)
+    {
+        
+
+    sf::RenderWindow window(sf::VideoMode(2560, 1440), "SFML works!", sf::Style::None);
+   
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+
+       
+        window.clear();
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            A = A - 1;
+
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            A = A + 1;
+
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+
+            B = B + 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+
+            B = B - 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+        {
+            C = C + 1;
+
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+        {
+            C = C - 1;
+
+        }
+        
+        sf::RectangleShape shape(sf::Vector2f(120.f, 50.f));
+        shape.setFillColor(sf::Color::Blue);
+        shape.setPosition(A, B);
+        shape.setTexture(&testtexture);
+        window.draw(shape);
+        window.display();
+    }
+    }
+    return 0;
+}
+
+/////////////////////////
+This is the code for that massive mini-project I had that didn’t work out (this isn’t even the entire code, there is still 2 headers that aren’t included.)
+#include <SFML/Graphics.hpp>
+#include <string>
+#include <iostream>
+#include "Header1.cpp"
+#include "Header2.cpp"
+
+int main()
+{
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "SpellCaster", sf::Style::None);
+	double Wait = 20;
+	sf::Texture GoblingSitting;
+	sf::Texture GoblingBlinking;
+	sf::Texture GoblingTalking;
+	GoblingSitting.loadFromFile("GoblinSitting.png");
+	GoblingBlinking.loadFromFile("GoblinBlinking.png");
+	GoblingTalking.loadFromFile("GoblinTalking.png");
+	double Y;
+	double M;
+	double G;
+	double B;
+	float T;
+	M = 0;
+	Y = 0;
+	T = 0;
+	G = -1;
+	B = 0;
+	sf::Music music;
+	if (!music.openFromFile("crickets.wav"))
+	{
+		// error...
+	}
+	music.setVolume(M);
+	music.setLoop(true);
+	music.play();
+
+	while (Wait == 20)
+	{
+		
+		while (window.isOpen())
+		{
+			//sf::Event event;
+			//while (window.pollEvent(event)){}
+			sf::RectangleShape shape(sf::Vector2f(1920.f, 5702.f));
+			while (Y > -4609) {
+				window.clear();
+				
+				shape.setFillColor(sf::Color::White);
+				shape.setPosition(1, Y);
+				shape.setTexture(&GoblingSitting);
+
+				window.draw(shape);
+				window.display();
+				if (Y > -2250) {
+					shape.setFillColor(sf::Color::Black);
+					window.draw(shape);
+					window.display();
+				}
+				if (Y < -2250) {
+					if (M < 50)
+						music.setVolume(M);
+					M = M + .01;
+				}
+
+				Y = Y - .1;
+				//std::cout << Y;
+			}
+			while (B < 100000)
+			{
+				//This is the code for the blinking
+				if (T > 8000)
+				{
+					shape.setTexture(&GoblingBlinking);
+					window.draw(shape);
+					window.display();
+				}
+				std::cout << 1;
+				if (T < 8000)
+				{
+					shape.setTexture(&GoblingSitting);
+					window.draw(shape);
+					window.display();
+				}
+				std::cout << 2;
+				if (T > 10000){G = G * -1;
+				std::cout << 3;
+				}
+				if (T < 0){G = G * -1;
+				std::cout << 3;
+				}
+				T = T + G;
+				B = B + 2;
+				//////
+				
+			}
+			while(1 == 1)
+			{
+				shape.setTexture(&GoblingSitting);
+				window.draw(shape);
+				window.display();
+				window.clear();
+				sf::Font font;
+				font.loadFromFile("arial.ttf");
+				sf::Text text("hello", font);
+				text.setCharacterSize(30);
+				text.setFillColor(sf::Color::Red);
+				window.draw(text);
+				std::cout << 4;
+
+			}
+			}
+			
+		}
+
+		return 0;
+	}
+
+look at this mess of code that I was trying to use to make pong. fuck it - 
+#include <SFML/Graphics.hpp>
+#include <string>
+#include <iostream>
+
+int main()
+{
+    double paddle1move;
+    double paddle2move;
+    double ballY;
+    double ballX;
+    paddle1move = 1;
+    paddle2move = 1;
+    ballY = 600;
+    ballX = 400;
+   double ballXmove;
+    double ballYmove;
+    ballXmove = -.02;
+    ballYmove = .02;
+
+    double paddle1top;
+    double paddle1bottom;
+    double paddle2top;
+    double paddle2bottom;
+
+    paddle1top = 0;
+    paddle1bottom = 100;
+    paddle2top = 0;
+    paddle2bottom = 100;
+
+
+    sf::RectangleShape paddle1(sf::Vector2f(20.f, 100.f));
+    sf::RectangleShape paddle2(sf::Vector2f(20.f, 100.f));
+    sf::RectangleShape ball(sf::Vector2f(20.f, 20.f));
+    paddle1.setFillColor(sf::Color::White);
+    paddle2.setFillColor(sf::Color::White);
+    ball.setFillColor(sf::Color::White);
+    paddle1.setPosition(1, 1);
+    paddle2.setPosition(1, 1);
+    ball.setPosition(1, 1);
+
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Pongish", sf::Style::Default);
+    window.clear();
+    window.draw(paddle1);
+    window.draw(paddle2);
+    window.draw(ball);
+
+   
+
+    while (window.isOpen())
+    {
+        window.clear();
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+
+            paddle1move = paddle1move - .1;
+            paddle1top = paddle1top - .1;
+            paddle1bottom = paddle1bottom - .1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+
+            paddle1move = paddle1move + .1;
+            paddle1top = paddle1top + .1;
+            paddle1bottom = paddle1bottom + .1;
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+
+            paddle2move = paddle2move - .1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+
+            paddle2move = paddle2move + .1;
+        }
+
+        //////////////////
+
+
+
+       /* if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {ballX = ballX - .1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {ballX = ballX + .1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {ballY = ballY + .1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {ballY = ballY - .1;}*/
+
+        ballX = ballX + ballXmove;
+        ballY = ballY + ballYmove;
+       /* if(ballX < 0)
+        {
+            ballXmove = ballXmove * -1;
+        }
+        if (ballX > 1900)
+        {
+            ballXmove = ballXmove * -1;
+        }*/
+
+        
+
+        if (ballY < 0)
+        {
+            ballYmove = ballYmove * -1;
+        }
+       
+        if (ballY > 1060)
+        {
+            ballYmove = ballYmove * -1;
+        }
+
+        if (ballX > paddle1top)
+        {
+            if (ballX < paddle1bottom)
+            {
+                ballXmove = ballXmove * -1;
+            }
+        }
+
+        paddle1.setPosition(20, paddle1move);
+        paddle2.setPosition(1880, paddle2move);
+        ball.setPosition(ballX, ballY);
+
+       std::cout << paddle1move;
+       
+
+        window.draw(paddle1);
+        window.draw(paddle2);
+        window.draw(ball);
+        window.display();
+
+    }
+    return 0;
+}
+
+If you thought that the above pong was bad. Well get a load of this: this crap I thought about so much, and is so over-engineered it is hard to understand even though I labeled everything. Pretty trash. Also I made some stuff more complicated than necessary because I can’t remember how to make it more simple.
+#include <SFML/Graphics.hpp>
+#include <string>
+#include <iostream>
+
+
+int main()
+{
+
+    //this is the left paddle graphic creation, as well as setting the points to mark each forward towards the center corner of the paddle
+    sf::RectangleShape paddle1(sf::Vector2f(20.f, 100.f));
+    double paddle1topX; 
+    double paddle1topY;
+    double paddle1bottomX;
+    double paddle1bottomY;
+
+
+    //I had to add this so that I could move from a point of 0 just to make it simpliar.
+    double topleftcornergraphiccoordinate1X;
+    topleftcornergraphiccoordinate1X = 0;
+    double topleftcornergraphiccoordinate1Y;
+    topleftcornergraphiccoordinate1Y = 0;
+
+    paddle1topX = 20;
+    paddle1topY = 0;
+    paddle1bottomX = 20;
+    paddle1bottomY = 100;
+
+    //this is the right paddle graphic creation, as well as setting the points to mark each forward towards the center corner of the paddle
+    sf::RectangleShape paddle2(sf::Vector2f(20.f, 100.f));
+    double paddle2topX;
+    double paddle2topY;
+    double paddle2bottomX;
+    double paddle2bottomY;
+
+    paddle2topX = 0;
+    paddle2topY = 0;
+    paddle2bottomX = 0;
+    paddle2bottomY = 100;
+
+
+    //this is the ball graphic creation, as well as setting the points to mark each corner
+    sf::RectangleShape ball(sf::Vector2f(20.f, 20.f));
+    double balltoprightX;
+    double balltoprightY;
+    double balltopleftX;
+    double balltopleftY;
+    double ballbottomrightX;
+    double ballbottomrightY;
+    double ballbottomleftX;
+    double ballbottomleftY;
+
+
+    balltoprightX = 20;
+    balltoprightY = 0;
+    balltopleftX = 0;
+    balltopleftY = 0;
+    ballbottomrightX = 20;
+    ballbottomrightY = 20;
+    ballbottomleftX = 0;
+    ballbottomleftY = 20;
+
+
+
+    // this is the pre-set things that will allow me to mass change the values for the paddles and ball without having to modify each value. These values will be modified by the program which will allow me to mass update the graphics and hitboxes.
+    double paddle1graphic;
+    double paddle2graphic;
+    double ballgraphic;
+
+    double paddle1hitbox;
+    double paddle2hitbox;
+    double ballhitbox;
+
+    //this is the changer values that will allow me to change all the other values with. It is the motion controls for the stuff basically
+    double paddle1moverX;
+    double paddle1moverY;
+    double paddle2moverX;
+    double paddle2moverY;
+    double ballmoverX;
+    double ballmoverY;
+    paddle1moverX = 0;
+    paddle1moverY = 0;
+    paddle2moverX = 0;
+    paddle2moverY = 0;
+    ballmoverX = 0;
+    ballmoverY = 0;
+
+
+    //this colors the paddles white
+
+    paddle1.setFillColor(sf::Color::White);
+    paddle2.setFillColor(sf::Color::White);
+    ball.setFillColor(sf::Color::White);
+    /*paddle1.setPosition(0, 0);
+    paddle2.setPosition(0, 0);
+    ball.setPosition(0, 0);*/
+
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Pongish", sf::Style::Default);
+    window.clear();
+    /*window.draw(paddle1);
+    window.draw(paddle2);
+    window.draw(ball);*/
+
+    while (window.isOpen())
+	{
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            paddle1moverX = 1;
+
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            paddle1moverX = -1;
+
+
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+
+            paddle1moverY = 1;
+
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+
+            paddle1moverY = -1;
+
+        }
+
+
+
+
+        //this code moves the bounding boxes and graphics of paddle1. This includes the topXY and bottom XY coordinates. They are all tracked.
+        paddle1topX = paddle1topX + paddle1moverX;
+        paddle1topY = paddle1topY + paddle1moverY;
+        paddle1bottomX = paddle1bottomX + paddle1moverX;
+        paddle1bottomY = paddle1bottomY + paddle1moverY;
+        paddle1.setPosition(topleftcornergraphiccoordinate1X + paddle1moverX, topleftcornergraphiccoordinate1Y + paddle1moverY);
+
+
+      
+        paddle2topX = paddle2topX + paddle2moverX;
+        paddle2topY = paddle1topY + paddle2moverY;
+        paddle2bottomX = paddle2bottomX + paddle2moverX;
+        paddle2bottomY = paddle2bottomY + paddle2moverY;
+        paddle2.setPosition(paddle2topX + paddle2moverX, paddle2topY + paddle2moverY);
+
+
+
+        ball.setPosition(0, 0);
+
+
+
+
+       window.clear();
+       
+
+
+
+      
+
+       window.draw(paddle1);
+       window.draw(paddle2);
+       window.draw(ball);
+       window.display();
+
+       paddle1moverY = 0;
+       paddle1moverY = 0;
+       paddle1moverX = 0;
+       paddle1moverX = 0;
+	}
+}
+
+
+
+
+
+
+
+
+_____________________________
+
+
+
+
+
+
+
+
+
+
