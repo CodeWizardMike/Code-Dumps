@@ -1,0 +1,1450 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+
+
+int windowsizeX;
+int windowsizeY;
+
+double rotato;
+double wordrotato;
+
+double elapsedtime;
+double textheight = 0.0;
+double textwidth = 0.0;
+
+std::string ConsoleView = "TEST";
+bool consoleonoff = false;
+double ConsoleWidth = 0.0;
+double ConsoleHeight = 0.0;
+
+
+bool ProgramStarted = true;
+
+
+
+int UpDown;
+int Up;
+int Down;
+int Test1;
+int spellpower = 0;
+
+bool ball1startrotating = false;
+bool ball2startrotating = false;
+bool ball3startrotating = false;
+bool ball4startrotating = false;
+bool ball5startrotating = false;
+bool ball6startrotating = false;
+bool ball7startrotating = false;
+bool ball8startrotating = false;
+bool ball9startrotating = false;
+bool ball10startrotating = false;
+bool ball11startrotating = false;
+bool ball12startrotating = false;
+bool ball13startrotating = false;
+bool ball14startrotating = false;
+bool ball15startrotating = false;
+bool ball16startrotating = false;
+bool ball17startrotating = false;
+bool ball18startrotating = false;
+bool ball19startrotating = false;
+bool ball20startrotating = false;
+bool ball21startrotating = false;
+
+bool ball1stoprotating = false;
+bool ball2stoprotating = false;
+bool ball3stoprotating = false;
+bool ball4stoprotating = false;
+bool ball5stoprotating = false;
+bool ball6stoprotating = false;
+bool ball7stoprotating = false;
+bool ball8stoprotating = false;
+bool ball9stoprotating = false;
+bool ball10stoprotating = false;
+bool ball11stoprotating = false;
+bool ball12stoprotating = false;
+bool ball13stoprotating = false;
+bool ball14stoprotating = false;
+bool ball15stoprotating = false;
+bool ball16stoprotating = false;
+bool ball17stoprotating = false;
+bool ball18stoprotating = false;
+bool ball19stoprotating = false;
+bool ball20stoprotating = false;
+bool ball21stoprotating = false;
+
+
+
+
+
+
+
+
+
+
+bool ball1rotate = false;
+bool ball2rotate = false;
+bool ball3rotate = false;
+bool ball4rotate = false;
+bool ball5rotate = false;
+bool ball6rotate = false;
+bool ball7rotate = false;
+bool ball8rotate = false;
+bool ball9rotate = false;
+bool ball10rotate = false;
+bool ball11rotate = false;
+bool ball12rotate = false;
+bool ball13rotate = false;
+bool ball14rotate = false;
+bool ball15rotate = false;
+bool ball16rotate = false;
+bool ball17rotate = false;
+bool ball18rotate = false;
+bool ball19rotate = false;
+bool ball20rotate = false;
+bool ball21rotate = false;
+
+
+
+
+
+
+
+double ball1rotato = 0.0;
+double ball2rotato = 0.0;
+double ball3rotato = 0.0;
+double ball4rotato = 0.0;
+double ball5rotato = 0.0;
+double ball6rotato = 0.0;
+double ball7rotato = 0.0;
+double ball8rotato = 0.0;
+double ball9rotato = 0.0;
+double ball10rotato = 0.0;
+double ball11rotato = 0.0;
+double ball12rotato = 0.0;
+double ball13rotato = 0.0;
+double ball14rotato = 0.0;
+double ball15rotato = 0.0;
+double ball16rotato = 0.0;
+double ball17rotato = 0.0;
+double ball18rotato = 0.0;
+double ball19rotato = 0.0;
+double ball20rotato = 0.0;
+double ball21rotato = 0.0;
+
+double ball1Currentrotation;
+double ball2Currentrotation;
+double ball3Currentrotation;
+double ball4Currentrotation;
+double ball5Currentrotation;
+double ball6Currentrotation;
+double ball7Currentrotation;
+double ball8Currentrotation;
+double ball9Currentrotation;
+double ball10Currentrotation;
+double ball11Currentrotation;
+double ball12Currentrotation;
+double ball13Currentrotation;
+double ball14Currentrotation;
+double ball15Currentrotation;
+double ball16Currentrotation;
+double ball17Currentrotation;
+double ball18Currentrotation;
+double ball19Currentrotation;
+double ball20Currentrotation;
+double ball21Currentrotation;
+
+
+
+
+
+
+
+double positionX = 0;
+double positionY = 0;
+
+
+
+
+
+
+
+// <Text Stuff>
+
+std::string textoutput = "Missing";
+
+
+// <Text Stuff>
+
+
+int main()
+{
+
+
+    
+    //
+    double ball1Currentrotation = 0.0;
+    double ball2Currentrotation = 0.0;
+    double ball3Currentrotation = 0.0;
+    double ball4Currentrotation = 0.0;
+    double ball5Currentrotation = 0.0;
+    double ball6Currentrotation = 0.0;
+    double ball7Currentrotation = 0.0;
+    double ball8Currentrotation = 0.0;
+    double ball9Currentrotation = 0.0;
+    double ball10Currentrotation = 0.0;
+    double ball11Currentrotation = 0.0;
+    double ball12Currentrotation = 0.0;
+    double ball13Currentrotation = 0.0;
+    double ball14Currentrotation = 0.0;
+    double ball15Currentrotation = 0.0;
+    double ball16Currentrotation = 0.0;
+    double ball17Currentrotation = 0.0;
+    double ball18Currentrotation = 0.0;
+    double ball19Currentrotation = 0.0;
+    double ball20Currentrotation = 0.0;
+    double ball21Currentrotation = 0.0;
+
+    //
+
+    windowsizeX = 1920;
+    windowsizeY = 1080;
+    rotato = 2;
+    wordrotato = .005;
+  
+    Up = 1;
+    Down = 2;
+    UpDown = 0;
+    Test1 = 255.0;
+    
+   
+
+    /*std::cout << "X" << std::endl;
+    std::cin >> windowsizeX;
+    std::cout << "Y" << std::endl;
+    std::cin >> windowsizeY;*/
+    sf::RenderWindow window(sf::VideoMode(windowsizeX, windowsizeY), "SFML P1");
+
+
+    sf::RectangleShape BigCircle(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture MainCircle;
+    MainCircle.loadFromFile("circles/Big1Circle.png");
+    BigCircle.setTexture(&MainCircle);
+    BigCircle.setOrigin(540, 540);
+    BigCircle.setPosition(960, 540);
+
+    sf::RectangleShape SmallCircle(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture InnerCircle;
+    InnerCircle.loadFromFile("circles/Small1Circle.png");
+    SmallCircle.setTexture(&InnerCircle);
+    SmallCircle.setOrigin(540, 540);
+    SmallCircle.setPosition(960, 540);
+
+    sf::RectangleShape Blur1(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture InnerBlur;
+    InnerBlur.loadFromFile("circles/blur1.png");
+    Blur1.setTexture(&InnerBlur);
+    Blur1.setOrigin(540, 540);
+    Blur1.setPosition(960, 540);
+    //sf::Color(0, 0, 0, 255);
+
+    sf::RectangleShape WordCircle(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture InnerWordCircle;
+    InnerWordCircle.loadFromFile("circles/textcircle2.png");
+    WordCircle.setTexture(&InnerWordCircle);
+    WordCircle.setOrigin(540, 540);
+    WordCircle.setPosition(960, 540);
+
+    //////////////////////////////////////////////////////////////////////
+
+
+
+
+    /// <Balls>
+
+    sf::RectangleShape Ball1(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball1T;
+    Ball1T.loadFromFile("circles/spellballs/1.png");
+    Ball1.setTexture(&Ball1T);
+    Ball1.setOrigin(540, 540);
+    Ball1.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball2(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball2T;
+    Ball2T.loadFromFile("circles/spellballs/2.png");
+    Ball2.setTexture(&Ball2T);
+    Ball2.setOrigin(540, 540);
+    Ball2.setPosition(960, 540);
+    //
+        sf::RectangleShape Ball3(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball3T;
+    Ball3T.loadFromFile("circles/spellballs/3.png");
+    Ball3.setTexture(&Ball3T);
+    Ball3.setOrigin(540, 540);
+    Ball3.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball4(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball4T;
+    Ball4T.loadFromFile("circles/spellballs/4.png");
+    Ball4.setTexture(&Ball4T);
+    Ball4.setOrigin(540, 540);
+    Ball4.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball5(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball5T;
+    Ball5T.loadFromFile("circles/spellballs/5.png");
+    Ball5.setTexture(&Ball5T);
+    Ball5.setOrigin(540, 540);
+    Ball5.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball6(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball6T;
+    Ball6T.loadFromFile("circles/spellballs/6.png");
+    Ball6.setTexture(&Ball6T);
+    Ball6.setOrigin(540, 540);
+    Ball6.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball7(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball7T;
+    Ball7T.loadFromFile("circles/spellballs/7.png");
+    Ball7.setTexture(&Ball7T);
+    Ball7.setOrigin(540, 540);
+    Ball7.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball8(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball8T;
+    Ball8T.loadFromFile("circles/spellballs/8.png");
+    Ball8.setTexture(&Ball8T);
+    Ball8.setOrigin(540, 540);
+    Ball8.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball9(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball9T;
+    Ball9T.loadFromFile("circles/spellballs/9.png");
+    Ball9.setTexture(&Ball9T);
+    Ball9.setOrigin(540, 540);
+    Ball9.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball10(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball10T;
+    Ball10T.loadFromFile("circles/spellballs/10.png");
+    Ball10.setTexture(&Ball10T);
+    Ball10.setOrigin(540, 540);
+    Ball10.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball11(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball11T;
+    Ball11T.loadFromFile("circles/spellballs/11.png");
+    Ball11.setTexture(&Ball11T);
+    Ball11.setOrigin(540, 540);
+    Ball11.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball12(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball12T;
+    Ball12T.loadFromFile("circles/spellballs/12.png");
+    Ball12.setTexture(&Ball12T);
+    Ball12.setOrigin(540, 540);
+    Ball12.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball13(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball13T;
+    Ball13T.loadFromFile("circles/spellballs/13.png");
+    Ball13.setTexture(&Ball13T);
+    Ball13.setOrigin(540, 540);
+    Ball13.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball14(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball14T;
+    Ball14T.loadFromFile("circles/spellballs/14.png");
+    Ball14.setTexture(&Ball14T);
+    Ball14.setOrigin(540, 540);
+    Ball14.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball15(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball15T;
+    Ball15T.loadFromFile("circles/spellballs/15.png");
+    Ball15.setTexture(&Ball15T);
+    Ball15.setOrigin(540, 540);
+    Ball15.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball16(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball16T;
+    Ball16T.loadFromFile("circles/spellballs/16.png");
+    Ball16.setTexture(&Ball16T);
+    Ball16.setOrigin(540, 540);
+    Ball16.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball17(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball17T;
+    Ball17T.loadFromFile("circles/spellballs/17.png");
+    Ball17.setTexture(&Ball17T);
+    Ball17.setOrigin(540, 540);
+    Ball17.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball18(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball18T;
+    Ball18T.loadFromFile("circles/spellballs/18.png");
+    Ball18.setTexture(&Ball18T);
+    Ball18.setOrigin(540, 540);
+    Ball18.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball19(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball19T;
+    Ball19T.loadFromFile("circles/spellballs/19.png");
+    Ball19.setTexture(&Ball19T);
+    Ball19.setOrigin(540, 540);
+    Ball19.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball20(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball20T;
+    Ball20T.loadFromFile("circles/spellballs/20.png");
+    Ball20.setTexture(&Ball20T);
+    Ball20.setOrigin(540, 540);
+    Ball20.setPosition(960, 540);
+    //
+    sf::RectangleShape Ball21(sf::Vector2f(1080.f, 1080.f));
+    sf::Texture Ball21T;
+    Ball21T.loadFromFile("circles/spellballs/21.png");
+    Ball21.setTexture(&Ball21T);
+    Ball21.setOrigin(540, 540);
+    Ball21.setPosition(960, 540);
+    //
+    
+    //
+
+    /// <Balls>
+
+
+
+
+
+
+
+
+
+
+
+    // <Font>
+
+
+    sf::Font font;
+    if (!font.loadFromFile("fonts/arial.ttf"))
+    {
+        // error...
+    }
+
+
+
+    // <Font>
+
+  
+
+
+
+
+
+
+    ball1rotato = 0.01;
+    ball2rotato = 0.02;
+    ball3rotato = 0.03;
+    ball4rotato = 0.04;
+    ball5rotato = 0.05;
+    ball6rotato = 0.06;
+    ball7rotato = 0.07;
+    ball8rotato = 0.08;
+    ball9rotato = 0.09;
+    ball10rotato = 0.1;
+    ball11rotato = 0.11;
+    ball12rotato = 0.12;
+    ball13rotato = 0.13;
+    ball14rotato = 0.14;
+    ball15rotato = 0.15;
+    ball16rotato = 0.16;
+    ball17rotato = 0.17;
+    ball18rotato = 0.18;
+    ball19rotato = 0.19;
+    ball20rotato = 0.20;
+    ball21rotato = 0.21;
+
+   ////////////////////////////////////////////
+
+    sf::Clock clock;
+    clock.restart();
+
+    while (window.isOpen())
+    {
+
+        
+
+
+
+
+
+        //
+        ball1Currentrotation = Ball1.getRotation();
+        ball2Currentrotation = Ball2.getRotation();
+        ball3Currentrotation = Ball3.getRotation();
+        ball4Currentrotation = Ball4.getRotation();
+        ball5Currentrotation = Ball5.getRotation();
+        ball6Currentrotation = Ball6.getRotation();
+        ball7Currentrotation = Ball7.getRotation();
+        ball8Currentrotation = Ball8.getRotation();
+        ball9Currentrotation = Ball9.getRotation();
+        ball10Currentrotation = Ball10.getRotation();
+        ball11Currentrotation = Ball11.getRotation();
+        ball12Currentrotation = Ball12.getRotation();
+        ball13Currentrotation = Ball13.getRotation();
+        ball14Currentrotation = Ball14.getRotation();
+        ball15Currentrotation = Ball15.getRotation();
+        ball16Currentrotation = Ball16.getRotation();
+        ball17Currentrotation = Ball17.getRotation();
+        ball18Currentrotation = Ball18.getRotation();
+        ball19Currentrotation = Ball19.getRotation();
+        ball20Currentrotation = Ball20.getRotation();
+        ball21Currentrotation = Ball21.getRotation();
+       
+
+        
+        //
+
+        
+
+        //
+
+
+
+
+       
+
+
+
+
+
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+            Test1 = Test1 + .1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+            Test1 = Test1 - .1;
+        }*/
+
+   
+
+        Blur1.setFillColor(sf::Color(255, 255, 255, Test1));
+
+
+
+
+
+
+
+
+       // Console
+
+        
+        sf::Text Console;
+        Console.setFont(font);
+        Console.setString(ConsoleView);
+        Console.setCharacterSize(30);
+        Console.setFillColor(sf::Color::White);
+        Console.setStyle(sf::Text::Bold);
+        ConsoleWidth = Console.getLocalBounds().width;
+        ConsoleHeight = Console.getLocalBounds().height;
+        //Console.setOrigin((textwidth / 2), (textheight / 2));
+        Console.setPosition(0, 1000);
+       //Dont forget the 
+        //sf::Clock clock;
+        //clock.restart();
+        //just outside of the while loop.
+        sf::Time elapsed1 = clock.getElapsedTime();
+        sf::Time elapsed2 = clock.getElapsedTime();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde))
+        {
+            if (clock.getElapsedTime() >= sf::seconds(0.6f))
+            {
+                
+                    if (consoleonoff == true)
+                    {consoleonoff = false;}
+                    else
+                    {consoleonoff = true;}
+                    clock.restart();
+            }
+
+        }
+        if (consoleonoff == true)
+        {
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = "";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "q";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "w";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::E)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "e";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::R)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "r";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::T)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "t";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "y";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::U)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "u";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::I)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "i";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::O)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "o";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::P)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "p";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "a";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "s";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "d";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::F)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "f";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::G)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "g";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::H)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "h";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::J)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "j";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::K)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "l";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "z";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::X)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "x";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::C)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "c";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "v";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::B)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "b";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::N)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "n";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::M)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "m";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "1";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "2";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "3";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "4";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num5)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "5";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "6";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num7)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "7";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num8)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "8";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num9)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "9";
+                clock.restart();
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Num0)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+            {
+                ConsoleView = ConsoleView + "0";
+                clock.restart();
+            }
+       }
+
+
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) & (clock.getElapsedTime() >= sf::seconds(0.15f)))
+        {
+            if (ConsoleView == "qqq")
+            {
+                std::cout << "butts";
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "1")
+            {
+                spellpower = 1;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "2")
+            {
+                spellpower = 2;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "3")
+            {
+                spellpower = 3;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "4")
+            {
+                spellpower = 4;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "5")
+            {
+                spellpower = 5;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "6")
+            {
+                spellpower = 6;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "7")
+            {
+                spellpower = 7;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "8")
+            {
+                spellpower = 8;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "9")
+            {
+                spellpower = 9;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "10")
+            {
+                spellpower = 10;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "11")
+            {
+                spellpower = 11;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "12")
+            {
+                spellpower = 12;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "13")
+            {
+                spellpower = 13;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "14")
+            {
+                spellpower = 14;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "15")
+            {
+                spellpower = 15;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "16")
+            {
+                spellpower = 16;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "17")
+            {
+                spellpower = 17;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "18")
+            {
+                spellpower = 18;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "19")
+            {
+                spellpower = 19;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "20")
+            {
+                spellpower = 20;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "21")
+            {
+                spellpower = 21;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "stop")
+            {
+                spellpower = 0;
+                ConsoleView = "";
+
+            }
+            if (ConsoleView == "quit")
+            {
+                
+                ConsoleView = "";
+
+            }
+        }
+        //
+
+        //sf::Text text;
+        //text.setFont(font);
+        //text.setString(textoutput);
+        //text.setCharacterSize(65);
+        //text.setFillColor(sf::Color::Red);
+        ///*text.setStyle(sf::Text::Bold | sf::Text::Underlined);*/
+        //text.setStyle(sf::Text::Bold);
+        //textwidth = text.getLocalBounds().width;
+        //textheight = text.getLocalBounds().height;
+        //text.setOrigin((textwidth / 2), (textheight / 2));
+
+        //text.setPosition(960, 60);
+       
+
+        
+
+        /// <this is the code that allows the circle to spin when its in the right power level, but it will stop if it is a lesser power level, or if the right order is given.> this needs to be finished
+        //1
+        if (spellpower >= 1)
+        {ball1startrotating = true;
+         ball1stoprotating = false;}
+        if (spellpower < 1)
+        {ball1stoprotating = true;}
+
+         if (ball1startrotating == true)
+        {Ball1.rotate(ball1rotato);}
+        if ((ball1startrotating == true) & (ball1stoprotating == true) & (ball1Currentrotation > 0) & (ball1Currentrotation < 2))
+        {ball1startrotating = false;
+         ball1stoprotating = false;}
+        //2
+        if (spellpower >= 2)
+        {
+            ball2startrotating = true;
+            ball2stoprotating = false;
+        }
+        if (spellpower < 2)
+        {
+            ball2stoprotating = true;
+        }
+
+        if (ball2startrotating == true)
+        {
+            Ball2.rotate(ball2rotato);
+        }
+        if ((ball2startrotating == true) & (ball2stoprotating == true) & (ball2Currentrotation > 0) & (ball2Currentrotation < 2))
+        {
+            ball2startrotating = false;
+            ball2stoprotating = false;
+        }
+        //3
+        if (spellpower >= 3)
+        {
+            ball3startrotating = true;
+            ball3stoprotating = false;
+        }
+        if (spellpower < 3)
+        {
+            ball3stoprotating = true;
+        }
+
+        if (ball3startrotating == true)
+        {
+            Ball3.rotate(ball3rotato);
+        }
+        if ((ball3startrotating == true) & (ball3stoprotating == true) & (ball3Currentrotation > 0) & (ball3Currentrotation < 2))
+        {
+            ball3startrotating = false;
+            ball3stoprotating = false;
+        }
+        //4
+        if (spellpower >= 4)
+        {
+            ball4startrotating = true;
+            ball4stoprotating = false;
+        }
+        if (spellpower < 4)
+        {
+            ball4stoprotating = true;
+        }
+
+        if (ball4startrotating == true)
+        {
+            Ball4.rotate(ball4rotato);
+        }
+        if ((ball4startrotating == true) & (ball4stoprotating == true) & (ball4Currentrotation > 0) & (ball4Currentrotation < 2))
+        {
+            ball4startrotating = false;
+            ball4stoprotating = false;
+        }
+        //5
+        if (spellpower >= 5)
+        {
+            ball5startrotating = true;
+            ball5stoprotating = false;
+        }
+        if (spellpower < 5)
+        {
+            ball5stoprotating = true;
+        }
+
+        if (ball5startrotating == true)
+        {
+            Ball5.rotate(ball5rotato);
+        }
+        if ((ball5startrotating == true) & (ball5stoprotating == true) & (ball5Currentrotation > 0) & (ball5Currentrotation < 2))
+        {
+            ball5startrotating = false;
+            ball5stoprotating = false;
+        }
+        //6
+        if (spellpower >= 6)
+        {
+            ball6startrotating = true;
+            ball6stoprotating = false;
+        }
+        if (spellpower < 6)
+        {
+            ball6stoprotating = true;
+        }
+
+        if (ball6startrotating == true)
+        {
+            Ball6.rotate(ball6rotato);
+        }
+        if ((ball6startrotating == true) & (ball6stoprotating == true) & (ball6Currentrotation > 0) & (ball6Currentrotation < 2))
+        {
+            ball6startrotating = false;
+            ball6stoprotating = false;
+        }
+        //7
+        if (spellpower >= 7)
+        {
+            ball7startrotating = true;
+            ball7stoprotating = false;
+        }
+        if (spellpower < 7)
+        {
+            ball7stoprotating = true;
+        }
+
+        if (ball7startrotating == true)
+        {
+            Ball7.rotate(ball7rotato);
+        }
+        if ((ball7startrotating == true) & (ball7stoprotating == true) & (ball7Currentrotation > 0) & (ball7Currentrotation < 2))
+        {
+            ball7startrotating = false;
+            ball7stoprotating = false;
+        }
+        //8
+        if (spellpower >= 8)
+        {
+            ball8startrotating = true;
+            ball8stoprotating = false;
+        }
+        if (spellpower < 8)
+        {
+            ball8stoprotating = true;
+        }
+
+        if (ball8startrotating == true)
+        {
+            Ball8.rotate(ball8rotato);
+        }
+        if ((ball8startrotating == true) & (ball8stoprotating == true) & (ball8Currentrotation > 0) & (ball8Currentrotation < 2))
+        {
+            ball8startrotating = false;
+            ball8stoprotating = false;
+        }
+        //9
+        if (spellpower >= 9)
+        {
+            ball9startrotating = true;
+            ball9stoprotating = false;
+        }
+        if (spellpower < 9)
+        {
+            ball9stoprotating = true;
+        }
+
+        if (ball9startrotating == true)
+        {
+            Ball9.rotate(ball9rotato);
+        }
+        if ((ball9startrotating == true) & (ball9stoprotating == true) & (ball9Currentrotation > 0) & (ball9Currentrotation < 2))
+        {
+            ball9startrotating = false;
+            ball9stoprotating = false;
+        }
+        //10
+        if (spellpower >= 10)
+        {
+            ball10startrotating = true;
+            ball10stoprotating = false;
+        }
+        if (spellpower < 10)
+        {
+            ball10stoprotating = true;
+        }
+
+        if (ball10startrotating == true)
+        {
+            Ball10.rotate(ball10rotato);
+        }
+        if ((ball10startrotating == true) & (ball10stoprotating == true) & (ball10Currentrotation > 0) & (ball10Currentrotation < 2))
+        {
+            ball10startrotating = false;
+            ball10stoprotating = false;
+        }
+        //11
+        if (spellpower >= 11)
+        {
+            ball11startrotating = true;
+            ball11stoprotating = false;
+        }
+        if (spellpower < 11)
+        {
+            ball11stoprotating = true;
+        }
+
+        if (ball11startrotating == true)
+        {
+            Ball11.rotate(ball11rotato);
+        }
+        if ((ball11startrotating == true) & (ball11stoprotating == true) & (ball11Currentrotation > 0) & (ball11Currentrotation < 2))
+        {
+            ball11startrotating = false;
+            ball11stoprotating = false;
+        }
+        //12
+        if (spellpower >= 12)
+        {
+            ball12startrotating = true;
+            ball12stoprotating = false;
+        }
+        if (spellpower < 12)
+        {
+            ball12stoprotating = true;
+        }
+
+        if (ball12startrotating == true)
+        {
+            Ball12.rotate(ball12rotato);
+        }
+        if ((ball12startrotating == true) & (ball12stoprotating == true) & (ball12Currentrotation > 0) & (ball12Currentrotation < 2))
+        {
+            ball12startrotating = false;
+            ball12stoprotating = false;
+        }
+        //13
+        if (spellpower >= 13)
+        {
+            ball13startrotating = true;
+            ball13stoprotating = false;
+        }
+        if (spellpower < 13)
+        {
+            ball13stoprotating = true;
+        }
+
+        if (ball13startrotating == true)
+        {
+            Ball13.rotate(ball13rotato);
+        }
+        if ((ball13startrotating == true) & (ball13stoprotating == true) & (ball13Currentrotation > 0) & (ball13Currentrotation < 2))
+        {
+            ball13startrotating = false;
+            ball13stoprotating = false;
+        }
+        //14
+        if (spellpower >= 14)
+        {
+            ball14startrotating = true;
+            ball14stoprotating = false;
+        }
+        if (spellpower < 14)
+        {
+            ball14stoprotating = true;
+        }
+
+        if (ball14startrotating == true)
+        {
+            Ball14.rotate(ball14rotato);
+        }
+        if ((ball14startrotating == true) & (ball14stoprotating == true) & (ball14Currentrotation > 0) & (ball14Currentrotation < 2))
+        {
+            ball14startrotating = false;
+            ball14stoprotating = false;
+        }
+        //15
+        if (spellpower >= 15)
+        {
+            ball15startrotating = true;
+            ball15stoprotating = false;
+        }
+        if (spellpower < 15)
+        {
+            ball15stoprotating = true;
+        }
+
+        if (ball15startrotating == true)
+        {
+            Ball15.rotate(ball15rotato);
+        }
+        if ((ball15startrotating == true) & (ball15stoprotating == true) & (ball15Currentrotation > 0) & (ball15Currentrotation < 2))
+        {
+            ball15startrotating = false;
+            ball15stoprotating = false;
+        }
+        //16
+        if (spellpower >= 16)
+        {
+            ball16startrotating = true;
+            ball16stoprotating = false;
+        }
+        if (spellpower < 16)
+        {
+            ball16stoprotating = true;
+        }
+
+        if (ball16startrotating == true)
+        {
+            Ball16.rotate(ball16rotato);
+        }
+        if ((ball16startrotating == true) & (ball16stoprotating == true) & (ball16Currentrotation > 0) & (ball16Currentrotation < 2))
+        {
+            ball16startrotating = false;
+            ball16stoprotating = false;
+        }
+        //17
+        if (spellpower >= 17)
+        {
+            ball17startrotating = true;
+            ball17stoprotating = false;
+        }
+        if (spellpower < 17)
+        {
+            ball17stoprotating = true;
+        }
+
+        if (ball17startrotating == true)
+        {
+            Ball17.rotate(ball17rotato);
+        }
+        if ((ball17startrotating == true) & (ball17stoprotating == true) & (ball17Currentrotation > 0) & (ball17Currentrotation < 2))
+        {
+            ball17startrotating = false;
+            ball17stoprotating = false;
+        }
+        //18
+        if (spellpower >= 18)
+        {
+            ball18startrotating = true;
+            ball18stoprotating = false;
+        }
+        if (spellpower < 18)
+        {
+            ball18stoprotating = true;
+        }
+
+        if (ball18startrotating == true)
+        {
+            Ball18.rotate(ball18rotato);
+        }
+        if ((ball18startrotating == true) & (ball18stoprotating == true) & (ball18Currentrotation > 0) & (ball18Currentrotation < 2))
+        {
+            ball18startrotating = false;
+            ball18stoprotating = false;
+        }
+        //19
+        if (spellpower >= 19)
+        {
+            ball19startrotating = true;
+            ball19stoprotating = false;
+        }
+        if (spellpower < 19)
+        {
+            ball19stoprotating = true;
+        }
+
+        if (ball19startrotating == true)
+        {
+            Ball19.rotate(ball19rotato);
+        }
+        if ((ball19startrotating == true) & (ball19stoprotating == true) & (ball19Currentrotation > 0) & (ball19Currentrotation < 2))
+        {
+            ball19startrotating = false;
+            ball19stoprotating = false;
+        }
+        //20
+        if (spellpower >= 20)
+        {
+            ball20startrotating = true;
+            ball20stoprotating = false;
+        }
+        if (spellpower < 20)
+        {
+            ball20stoprotating = true;
+        }
+
+        if (ball20startrotating == true)
+        {
+            Ball20.rotate(ball20rotato);
+        }
+        if ((ball20startrotating == true) & (ball20stoprotating == true) & (ball20Currentrotation > 0) & (ball20Currentrotation < 2))
+        {
+            ball20startrotating = false;
+            ball20stoprotating = false;
+        }
+        //21
+        if (spellpower >= 21)
+        {
+            ball21startrotating = true;
+            ball21stoprotating = false;
+        }
+        if (spellpower < 21)
+        {
+            ball21stoprotating = true;
+        }
+
+        if (ball21startrotating == true)
+        {
+            Ball21.rotate(ball21rotato);
+        }
+        if ((ball21startrotating == true) & (ball21stoprotating == true) & (ball21Currentrotation > 0) & (ball21Currentrotation < 2))
+        {
+            ball21startrotating = false;
+            ball21stoprotating = false;
+        }
+        //
+
+
+
+        
+        
+        
+       
+
+
+
+        
+        BigCircle.rotate(rotato);
+        SmallCircle.rotate(rotato * -1);
+        Blur1.rotate(rotato);
+        WordCircle.rotate(wordrotato);
+
+       
+
+
+        // <Fonts>
+
+        sf::Text text;
+        text.setFont(font);
+        text.setString(textoutput);
+        text.setCharacterSize(65);
+        text.setFillColor(sf::Color::Red);
+        /*text.setStyle(sf::Text::Bold | sf::Text::Underlined);*/
+        text.setStyle(sf::Text::Bold);
+        textwidth = text.getLocalBounds().width;
+        textheight = text.getLocalBounds().height;
+        text.setOrigin((textwidth / 2), (textheight / 2));
+
+        text.setPosition(960, 60);
+
+        // <Fonts>
+
+
+
+
+        window.clear();
+        /// <Balls>
+
+
+
+        window.draw(Ball1);
+        window.draw(Ball2);
+        window.draw(Ball3);
+        window.draw(Ball4);
+        window.draw(Ball5);
+        window.draw(Ball6);
+        window.draw(Ball7);
+        window.draw(Ball8);
+        window.draw(Ball9);
+        window.draw(Ball10);
+        window.draw(Ball11);
+        window.draw(Ball12);
+        window.draw(Ball13);
+        window.draw(Ball14);
+        window.draw(Ball15);
+        window.draw(Ball16);
+        window.draw(Ball17);
+        window.draw(Ball18);
+        window.draw(Ball19);
+        window.draw(Ball20);
+        window.draw(Ball21);
+
+
+
+        /// <Balls>
+
+
+
+
+        //
+      
+      
+        //
+        window.draw(Blur1);
+        window.draw(BigCircle);
+
+        window.draw(WordCircle);
+        window.draw(SmallCircle);
+        
+        window.draw(text);
+        if (consoleonoff == true)
+        {
+            window.draw(Console);
+        }
+
+        window.display();
+
+       
+
+      
+
+
+        ProgramStarted = false;
+    }
+
+
+
+
+
+    return 0;
+}
