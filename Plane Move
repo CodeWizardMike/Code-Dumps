@@ -1,0 +1,409 @@
+Below is the raw code from my recent test
+
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "test1", sf::Style::Default);
+    sf::RectangleShape Shape1(sf::Vector2f(200.f, 200.f));
+    double MouseActiveX;
+    double MouseActiveY;
+    MouseActiveX = 0.0;
+    MouseActiveY = 0.0;
+    double GrabX;
+    double GrabY;
+    GrabX = 0.0;
+    GrabY = 0.0;
+    double Shape1X;
+    double Shape1Y;
+    Shape1X = 10.0;
+    Shape1Y = 10.0;
+    bool CurrentShapeLocationGrabbed;
+    CurrentShapeLocationGrabbed = false;
+
+    double MouseGrabX;
+    double MouseGrabY;
+    MouseGrabX = 0.0;
+    MouseGrabY = 0.0;
+
+    int test1;
+    int test2;
+    test1 = 0;
+    test2 = 0;
+
+    double Width;
+    double Height;
+    Width = 0.0;
+    Height = 0.0;
+
+    bool ActiveBox;
+    ActiveBox = false;
+    
+
+
+  /*  std::string test1;
+    std::string s = "nothing";*/
+
+    
+    bool LeftMouseClick;
+    LeftMouseClick = false;
+    bool LeftMouseRelease;
+    LeftMouseRelease = false;
+   
+    class area
+    {
+
+    };
+
+    while (1 == 1)
+    {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {MouseActiveX = MouseActiveX - 1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {MouseActiveX = MouseActiveX + 1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {MouseActiveY = MouseActiveY + 1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {MouseActiveY = MouseActiveY - 1;}
+
+      
+        MouseActiveX = sf::Mouse::getPosition(window).x;
+        MouseActiveY = sf::Mouse::getPosition(window).y;
+        Width = Shape1.getSize().x;
+        Height = Shape1.getSize().y;
+
+        if (MouseActiveX >= Shape1X && MouseActiveX <= Shape1X + Width && MouseActiveY >= Shape1Y && MouseActiveY <= Shape1Y + Height)
+        {
+            ActiveBox = true;
+        }
+        else
+        {
+            ActiveBox = false;
+        }
+
+
+        
+
+       
+        
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                LeftMouseClick = true;
+                LeftMouseRelease = false;
+
+            }
+            else
+            {
+                LeftMouseClick = false;
+                LeftMouseRelease = true;
+            }
+
+            if (LeftMouseClick == true && ActiveBox == true)
+            {
+                if (CurrentShapeLocationGrabbed == false)
+                {
+                    GrabX = Shape1X;
+                    GrabY = Shape1Y;
+                    MouseGrabX = MouseActiveX;
+                    MouseGrabY = MouseActiveY;
+                    CurrentShapeLocationGrabbed = true;
+
+                }
+                Shape1X = (MouseActiveX - MouseGrabX) + GrabX;
+                Shape1Y = (MouseActiveY - MouseGrabY) + GrabY;
+
+
+            }
+            else
+            {
+                CurrentShapeLocationGrabbed = false;
+                GrabX = 0.0;
+                GrabY = 0.0;
+            }
+
+            //std::cout << LeftMouseClick << std::endl;
+
+
+
+
+            Shape1.setPosition(Shape1X, Shape1Y);
+
+
+
+
+
+
+            window.clear();
+            window.draw(Shape1);
+            window.display();
+        
+    }
+
+    return 0;
+}
+
+
+
+Now below this is the code with text interjected here and there to explain how it works:
+
+
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "test1", sf::Style::Default);
+The SFRenderWindow command is rendering a window that is 1000x1000 pixels in size, with a default border. It is also titled test1.
+    sf::RectangleShape Shape1(sf::Vector2f(200.f, 200.f));
+Sf::RectangleShape is creating a rectangle that is 200x200 pixels large, and calling it Shape1
+    double MouseActiveX;
+    double MouseActiveY;
+    MouseActiveX = 0.0;
+    MouseActiveY = 0.0;
+The Double MouseActive X and Y is setting double variables for the mouses current coordinates on the screen, and also pre-defining them by saying they are 0.0. The values of this change very quickly in the program, it does not stay at 0.0 for long.
+    double GrabX;
+    double GrabY;
+    GrabX = 0.0;
+    GrabY = 0.0;
+GrabX and Y and their corresponding variables 
+    double Shape1X;
+    double Shape1Y;
+    Shape1X = 10.0;
+    Shape1Y = 10.0;
+    bool CurrentShapeLocationGrabbed;
+    CurrentShapeLocationGrabbed = false;
+
+    double MouseGrabX;
+    double MouseGrabY;
+    MouseGrabX = 0.0;
+    MouseGrabY = 0.0;
+
+    int test1;
+    int test2;
+    test1 = 0;
+    test2 = 0;
+
+    double Width;
+    double Height;
+    Width = 0.0;
+    Height = 0.0;
+These are for the width and height of the shape
+
+    bool ActiveBox;
+    ActiveBox = false;
+    
+
+
+  /*  std::string test1;
+    std::string s = "nothing";*/
+
+    
+    bool LeftMouseClick;
+    LeftMouseClick = false;
+    bool LeftMouseRelease;
+    LeftMouseRelease = false;
+   
+    class area
+    {
+
+    };
+
+    while (1 == 1)
+    {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {MouseActiveX = MouseActiveX - 1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {MouseActiveX = MouseActiveX + 1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {MouseActiveY = MouseActiveY + 1;}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {MouseActiveY = MouseActiveY - 1;}
+This is some useless leftover code to move the box around on the screen, but it is useless in this program now.
+      
+        MouseActiveX = sf::Mouse::getPosition(window).x;
+        MouseActiveY = sf::Mouse::getPosition(window).y;
+        Width = Shape1.getSize().x;
+        Height = Shape1.getSize().y;
+
+
+The command below, the if (MouseActiveX… is that complicated command that defines a bounding box for the shape that we have made. Drew helped set it up, which is dank, and I would not have thought to do it that way. I should probably take some classes about it honestly.)
+        if (MouseActiveX >= Shape1X && MouseActiveX <= Shape1X + Width && MouseActiveY >= Shape1Y && MouseActiveY <= Shape1Y + Height)
+        {
+            ActiveBox = true;
+        }
+        else
+        {
+            ActiveBox = false;
+        }
+
+
+        
+
+       
+        
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                LeftMouseClick = true;
+                LeftMouseRelease = false;
+
+            }
+            else
+            {
+                LeftMouseClick = false;
+                LeftMouseRelease = true;
+            }
+
+            if (LeftMouseClick == true && ActiveBox == true)
+            {
+                if (CurrentShapeLocationGrabbed == false)
+                {
+                    GrabX = Shape1X;
+                    GrabY = Shape1Y;
+                    MouseGrabX = MouseActiveX;
+                    MouseGrabY = MouseActiveY;
+                    CurrentShapeLocationGrabbed = true;
+
+                }
+                Shape1X = (MouseActiveX - MouseGrabX) + GrabX;
+                Shape1Y = (MouseActiveY - MouseGrabY) + GrabY;
+
+
+            }
+            else
+            {
+                CurrentShapeLocationGrabbed = false;
+                GrabX = 0.0;
+                GrabY = 0.0;
+            }
+
+            //std::cout << LeftMouseClick << std::endl;
+
+
+
+
+            Shape1.setPosition(Shape1X, Shape1Y);
+
+
+
+
+
+
+            window.clear();
+            window.draw(Shape1);
+            window.display();
+        
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+This is the original code engineered to be more simple, and can be more easily expanded upon.
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+
+
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "test1", sf::Style::Default);
+    sf::RectangleShape Shape1(sf::Vector2f(200.f, 200.f));
+
+    double MouseX;
+    double MouseY;
+    MouseX = 0.0;
+    MouseY = 0.0;
+    double MouseGrabLocationX;
+    double MouseGrabLocationY;
+    MouseGrabLocationX = 0.0;
+    MouseGrabLocationY = 0.0;
+
+    bool MouseLeftClick;
+    MouseLeftClick = false;
+
+    double Shape1X;
+    double Shape1Y;
+    Shape1X = 0.0;
+    Shape1Y = 0.0;
+    double Shape1Width;
+    double Shape1Height;
+    Shape1Width = 0.0;
+    Shape1Height = 0.0;
+    bool Shape1ActiveBox;
+    Shape1ActiveBox = false;
+    bool Shape1Grabbed;
+    Shape1Grabbed = false;
+    double Shape1XGrabbed;
+    double Shape1YGrabbed;
+    Shape1XGrabbed = 0.0;
+    Shape1YGrabbed = 0.0;
+
+    
+    while (1 == 1)
+    {
+        MouseX = sf::Mouse::getPosition(window).x;
+        MouseY = sf::Mouse::getPosition(window).y;
+
+        Shape1Width = Shape1.getSize().x;
+        Shape1Height = Shape1.getSize().y;
+
+
+        if (MouseX >= Shape1X && MouseX <= Shape1X + Shape1Width && MouseY >= Shape1Y && MouseY <= Shape1Y + Shape1Height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            Shape1ActiveBox = true;
+            MouseLeftClick = true;
+
+
+
+            if (Shape1Grabbed == false)
+            {
+                Shape1XGrabbed = Shape1X;
+                Shape1YGrabbed = Shape1Y;
+                MouseGrabLocationX = MouseX;
+                MouseGrabLocationY = MouseY;
+                Shape1Grabbed = true;
+            }
+
+
+
+            Shape1X = (MouseX - MouseGrabLocationX) + Shape1XGrabbed;
+            Shape1Y = (MouseY - MouseGrabLocationY) + Shape1YGrabbed;
+        }
+        else
+        {
+            Shape1ActiveBox = false;
+            MouseLeftClick = false;
+
+            Shape1Grabbed = false;
+            MouseGrabLocationX = 0.0;
+            MouseGrabLocationY = 0.0;
+
+        }
+       
+        Shape1.setPosition(Shape1X, Shape1Y);
+
+
+            window.clear();
+            window.draw(Shape1);
+            window.display();
+        
+    }
+
+    return 0;
+}
+
