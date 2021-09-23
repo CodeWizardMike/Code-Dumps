@@ -1,0 +1,174 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <fstream>
+#include<sstream>
+#include <vector>
+#include <string>
+
+
+//the player TV is 1080 X 1920 as its set long ways. This makes it the same size as the tv so it makes it pretty much fullscreen and covers up the bar.
+double Player_Window_X = 1080.0;
+double Player_Window_Y = 1920.0;
+//this is the position of the Player View
+double Player_Window_Pos_X = 0.0;
+double Player_Window_Pos_Y = 0.0;
+
+//this is the size for the DM window, it right now is a square.
+double DM_Window_X = 1000.0;
+double DM_Window_Y = 1000.0;
+
+bool KeepRunning = true;
+
+
+//this is how much DELAY is used between keystroked for text input. changing it to a lower amount will allow you to type quicker, but you 
+//can't hold the button down for long otherwise it will type the letter twice
+double textinputdelaytime = 0.3;
+
+
+
+
+
+int main()
+{
+    //the code below creates a rectangle shape and sets it to a texture.
+    sf::RectangleShape FullScreenShape(sf::Vector2f(1080.f, 1920.f));
+    sf::Texture MaiEsse;
+    MaiEsse.loadFromFile("Pictures/MaiEsseMapsCombined.png");
+    FullScreenShape.setTexture(&MaiEsse);
+
+
+    //this code is for impomptu map inputs (i might faze this out)
+
+
+
+
+
+
+    //this renders the 2 windows, one for DM view and one for Player view. Player view has no movable border
+    sf::RenderWindow DM_View(sf::VideoMode(DM_Window_X, DM_Window_Y), "Dungeon Master View");
+    sf::RenderWindow Player_View(sf::VideoMode(Player_Window_X, Player_Window_Y), "Player View", sf::Style::None);
+
+
+
+    //taking file as inputstream
+    std::ifstream f("PlayerWindowResolution.txt"); 
+    std::string str;
+    if (f) {
+        std::ostringstream ss;
+        ss << f.rdbuf(); // reading data
+        str = ss.str();
+    }
+    //std::cout << str << '\n';
+
+    //these values should hopefully put the player window right where it should be on my screen.
+    Player_Window_Pos_X = 832;
+    Player_Window_Pos_Y = 1080;
+
+    //here is the main start loop for the main program.
+    while (KeepRunning == true)
+    {
+
+        //Without these events, both the player and DM window freeze and are unable to be interacted with.
+        sf::Event event;
+        while (DM_View.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                DM_View.close();
+        }
+        sf::Event event2;
+        while (Player_View.pollEvent(event2))
+        {
+            if (event2.type == sf::Event::Closed)
+                Player_View.close();
+        }
+
+        
+
+        
+
+        //testing for loading a picture into the thingy
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        {
+
+        }
+
+
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+        {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            {
+                Player_Window_Pos_Y = Player_Window_Pos_Y - 0.1;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                Player_Window_Pos_Y = Player_Window_Pos_Y + 0.1;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            {
+                Player_Window_Pos_X = Player_Window_Pos_X - 0.1;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            {
+                Player_Window_Pos_X = Player_Window_Pos_X + 0.1;
+            }
+        }
+
+               if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+               {
+                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                   {
+                       Player_Window_Pos_Y = Player_Window_Pos_Y - 0.01;
+                   }
+                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                   {
+                       Player_Window_Pos_Y = Player_Window_Pos_Y + 0.01;
+                   }
+                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                   {
+                       Player_Window_Pos_X = Player_Window_Pos_X - 0.01;
+                   }
+                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                   {
+                       Player_Window_Pos_X = Player_Window_Pos_X + 0.01;
+                   }
+
+                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+                   {
+                  
+                       std::cout << "X= " << Player_Window_Pos_X << " Y= " << Player_Window_Pos_Y << std::endl;
+
+                   }
+               }
+
+               Player_View.setPosition(sf::Vector2i(Player_Window_Pos_X, Player_Window_Pos_Y));
+
+
+
+
+               if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+               {
+                   KeepRunning = false;
+               }
+
+
+
+        DM_View.clear();
+        DM_View.draw(FullScreenShape);
+        DM_View.display();
+
+        Player_View.clear();
+        Player_View.draw(FullScreenShape);
+        Player_View.display();
+
+
+
+
+    }
+
+
+
+
+
+	return 0;
+}
