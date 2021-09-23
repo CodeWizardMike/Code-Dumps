@@ -1,0 +1,278 @@
+#include <SFML/Audio.hpp>
+#include <SFML/Config.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+
+#include <Windows.h>
+#include <Dwmapi.h>
+#include <iostream>
+
+
+
+
+//professors helpers moving up and down
+double ProfHelperY;
+
+//these are the values where we figure out the screen resolution
+int screenXsize;
+int screenYsize;
+
+//this is whether or not helper is going up or down
+bool GoUp;
+
+
+
+int main()
+{
+    HWND hwnd = GetConsoleWindow();
+    ShowWindow(hwnd, SW_HIDE);
+    //this will make helper go up right away
+    GoUp = true;
+
+    //boundary box stuff
+    double MouseX;
+    double MouseY;
+    MouseX = 0.0;
+    MouseY = 0.0;
+    double MouseGrabLocationX;
+    double MouseGrabLocationY;
+    MouseGrabLocationX = 0.0;
+    MouseGrabLocationY = 0.0;
+
+    bool MouseLeftClick;
+    MouseLeftClick = false;
+
+    double Shape1X;
+    double Shape1Y;
+    Shape1X = 0.0;
+    Shape1Y = 0.0;
+    double Shape1Width;
+    double Shape1Height;
+    Shape1Width = 0.0;
+    Shape1Height = 0.0;
+    bool Shape1ActiveBox;
+    Shape1ActiveBox = false;
+    bool Shape1Grabbed;
+    Shape1Grabbed = false;
+    double Shape1XGrabbed;
+    double Shape1YGrabbed;
+    Shape1XGrabbed = 0.0;
+    Shape1YGrabbed = 0.0;
+    //this is all so we can click on window 2
+
+
+    //window 1 is for helper, window 2 is for his clickable prompt
+    sf::RenderWindow window(sf::VideoMode(180, 180), "Professor Helper", sf::Style::None);
+    sf::RenderWindow window2(sf::VideoMode(320, 200), "Button Prompt", sf::Style::None);
+
+
+    //this makes the rectangle for helper, as well applied his default pose
+    sf::RectangleShape square(sf::Vector2f(320.f, 180.f));
+    sf::Texture Mainsquare;
+    Mainsquare.loadFromFile("helper/1.png");
+    square.setTexture(&Mainsquare);
+    square.setOrigin(0, 0);
+    square.setPosition(-33.5, 0);
+    //it also sets his position slightly off center of the square so his hand doesn't get cut off when he raises it
+
+    sf::RectangleShape square2(sf::Vector2f(320.f, 200.f));
+    // this rectangle is for helpers text box
+
+
+    //professor helpers timer
+    sf::Clock clock;
+    clock.restart();
+
+
+
+    //mr helper audio
+    sf::Music musics;
+    musics.openFromFile("helper/profixes.wav");
+
+
+
+
+
+    //Mr helper textures, each one is a different frame of his animation
+    sf::Texture helper1;
+    sf::Texture helper2;
+    sf::Texture helper3;
+    sf::Texture helper4;
+    sf::Texture helper5;
+    sf::Texture helper6;
+    sf::Texture helper7;
+    sf::Texture helper8;
+    sf::Texture helper9;
+    sf::Texture helper10;
+    sf::Texture helper11;
+    helper1.loadFromFile("helper/1.png");
+    helper2.loadFromFile("helper/2.png");
+    helper3.loadFromFile("helper/3.png");
+    helper4.loadFromFile("helper/4.png");
+    helper5.loadFromFile("helper/5.png");
+    helper6.loadFromFile("helper/6.png");
+    helper7.loadFromFile("helper/7.png");
+    helper8.loadFromFile("helper/8.png");
+    helper9.loadFromFile("helper/9.png");
+    helper10.loadFromFile("helper/10.png");
+    helper11.loadFromFile("helper/11.png");
+
+    //this is the texture for his text bubble
+    sf::Texture bubble1;
+    bubble1.loadFromFile("helper/bubble1.png");
+
+
+    //I dont know how this works, but it allows helper and the text box to be transparent
+    MARGINS margins;
+    margins.cxLeftWidth = -1;
+
+    SetWindowLong(window.getSystemHandle(), GWL_STYLE, WS_POPUP | WS_VISIBLE);
+    DwmExtendFrameIntoClientArea(window.getSystemHandle(), &margins);
+
+    SetWindowLong(window2.getSystemHandle(), GWL_STYLE, WS_POPUP | WS_VISIBLE);
+    DwmExtendFrameIntoClientArea(window2.getSystemHandle(), &margins);
+
+    //These are the values for the screen size
+    screenXsize = 0;
+    screenYsize = 0;
+    ProfHelperY = 0;
+    screenXsize = sf::VideoMode::getDesktopMode().width;
+    screenYsize = sf::VideoMode::getDesktopMode().height;
+
+
+    ///this makes it so the window doesn't show on taskbar
+    SetWindowLongPtr(window.getSystemHandle(), GWL_EXSTYLE,
+        GetWindowLongPtr(window.getSystemHandle(), GWL_EXSTYLE)
+        | WS_EX_TOOLWINDOW);
+
+    SetWindowLongPtr(window2.getSystemHandle(), GWL_EXSTYLE,
+        GetWindowLongPtr(window2.getSystemHandle(), GWL_EXSTYLE)
+        | WS_EX_TOOLWINDOW);
+    ///it still shows up as helper2 in task manager
+
+
+    ///this puts his text box above helper
+    window2.setPosition(sf::Vector2i(screenXsize - 360, screenYsize - 0));
+
+    while (window.isOpen())
+    {
+
+        //this is for boundary box stuff. 
+        MouseX = sf::Mouse::getPosition(window2).x;
+        MouseY = sf::Mouse::getPosition(window2).y;
+        Shape1Width = square2.getSize().x;
+        Shape1Height = square2.getSize().y;
+
+        //this is responsible for making helper go up or down
+        if (GoUp == true) {
+            if (ProfHelperY > -180)
+            {
+                ProfHelperY = ProfHelperY - .04;
+            }
+
+        }
+        if (GoUp == false) {
+            if (ProfHelperY < -0)
+            {
+                ProfHelperY = ProfHelperY + .16;
+            }
+
+        }
+        ///true, he goes up, false, he goes down
+
+
+        //this code is responsible for helpers animations depending on how high or low he is on screen
+        if ((ProfHelperY < 0) & (ProfHelperY > -25))
+        {
+            square.setTexture(&helper1);
+        }
+        if ((ProfHelperY < -26) & (ProfHelperY > -50))
+        {
+            square.setTexture(&helper2);
+        }
+        if ((ProfHelperY < -51) & (ProfHelperY > -75))
+        {
+            square.setTexture(&helper3);
+        }
+        if ((ProfHelperY < -76) & (ProfHelperY > -100))
+        {
+            square.setTexture(&helper4);
+        }
+        if ((ProfHelperY < -101) & (ProfHelperY > -125))
+        {
+            square.setTexture(&helper5);
+        }
+        if ((ProfHelperY < -126) & (ProfHelperY > -150))
+        {
+            square.setTexture(&helper6);
+        }
+        if ((ProfHelperY < -179.9) & (ProfHelperY > -180))
+        {
+            square.setTexture(&helper7);
+            window2.setPosition(sf::Vector2i(screenXsize - 360, screenYsize - 348));
+            musics.play();
+        }
+        // its also responsible for making the text box appear, as well as playing his voiceline
+
+
+        //more clock stuff.
+        sf::Time elapsed1 = clock.getElapsedTime();
+        sf::Time elapsed2 = clock.getElapsedTime();
+        if (clock.getElapsedTime() >= sf::seconds(50.0f))
+        {
+            GoUp = true;
+            clock.restart();
+            musics.stop();
+        }
+        //there is some unnessary code here, but I won't touch it right now
+
+        //these commands were to force helper up and down during testing.
+      /*  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+            GoUp = true;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+            GoUp = false;
+        }*/
+
+
+        //this command sets helper in the bottom right corner of the screen, offset by some pixels, and then by his moveup or down ammount.
+        window.setPosition(sf::Vector2i(screenXsize - 190, screenYsize - 0 + ProfHelperY));
+
+
+        //this is for the boundary box, but can only sense if you click on window 2, not where in window 2.
+        if (MouseX >= Shape1X && MouseX <= Shape1X + Shape1Width && MouseY >= Shape1Y && MouseY <= Shape1Y + Shape1Height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            GoUp = false;
+            window2.setPosition(sf::Vector2i(screenXsize - 360, screenYsize - 0));
+        }
+
+
+
+        //hey look the orignal if the window is closed event,close everything.
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+
+
+        //here is for drawing everything to the windows, as well as making the background transparent.
+        window.clear(sf::Color::Transparent);
+        window.draw(square);
+        window.display();
+
+        window2.clear(sf::Color::Transparent);
+        window2.draw(square2);
+        window2.display();
+        square2.setTexture(&bubble1);
+
+    }
+
+    return 0;
+
+}
