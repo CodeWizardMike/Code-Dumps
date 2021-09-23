@@ -1,0 +1,195 @@
+#include <iostream>
+int main()
+{
+	using std::cout;
+	cout << 2 + 2 << '\n' << "hello";
+
+}
+________________
+std::cout << 2+2 << '\n' << "hello";
+
+using namespace std;
+using std::cout;
+_____________________________
+#include <iostream>
+int main()
+{
+	using std::cout;
+	cout << 2 + 2 << '\n' << "hello";
+
+	cout << '\n' << '\n';
+	double i = 20 + 2;
+	cout << i << '\n';
+	i = i * 3;
+	cout << i << '\n';
+	std::cin >> i;
+	double x = i * 2;
+	cout << x;
+}
+
+_________________________________
+
+#include <iostream>
+int main()
+{
+	using std::cout;
+	//cout << 2 + 2 << '\n' << "hello";
+
+	//cout << '\n' << '\n';
+	//double i = 20 + 2;
+	//cout << i << '\n';
+	//i = i * 3;
+	//cout << i << '\n';
+	//std::cin >> i;
+	//double x = i * 2;
+	//cout << x;
+	double k = 1;
+	double g = 2;
+	while (k == 1)
+	{
+		
+	g = g * 2;
+	cout << g << '\n';
+		
+	}
+}
+
+_______________________________________
+
+#include <iostream>
+using std::cout;
+using std::cin;
+
+int main()
+{
+	double firstnumber;
+	double secondnumber;
+	cout << "Type Fuckin Number";
+	cin >> firstnumber;
+	cout << "typed fuckin this" << firstnumber << "enter number 2 bitch" << '\n';
+	cin >> secondnumber;
+	'/n';
+
+	if (firstnumber < secondnumber)
+	{
+		cout << "the first number," << firstnumber << " ,has a smaller dick" << '\n';
+	}
+if (firstnumber == secondnumber)
+{
+	cout << firstnumber << " " << secondnumber << "these number the same yo" << '\n';
+}
+if (firstnumber > secondnumber)
+{
+	cout << firstnumber << "is bigger than " << secondnumber << '\n';
+}
+
+
+
+
+
+
+
+
+
+
+
+}
+
+__________________________________________
+
+#include <iostream>
+using std::cout;
+using std::cin;
+
+int main()
+{
+
+	double numbertoguess;
+	double numberyourguessing;
+	double yes;
+	double no;
+	double replay;
+	yes = 1;
+	no = 0;
+
+
+	cout << "player 1 type number player 2 has to guess: ";
+	cin >> numbertoguess;
+	cout << "player 2 guess the number now:";
+	numberyourguessing = 0;
+	replay = 0;
+	
+		while(replay = 1)
+		{ 
+			while (numberyourguessing != numbertoguess)
+			{
+				cin >> numberyourguessing;
+
+				if (numberyourguessing > numbertoguess)
+				{
+					'\n';
+					cout << "number is too big try smaller";
+				}
+				if (numberyourguessing < numbertoguess)
+				{
+					'\n';
+					cout << "number is too small try bigger";
+				}
+				if (numberyourguessing == numbertoguess)
+				{
+					'\n';
+					cout << "YOU WIN!";
+				}
+				if (numberyourguessing == numbertoguess)
+				{
+					'\n';
+					cout << "Do you want to play again? (yes or no)";
+						cin >> replay;
+				}
+			}
+ }
+}
+
+_______________________________
+
+#include <iostream>
+ using std::cout;
+ int add(int x, int y)
+ {
+	 return x * y;
+ }
+ int main()
+ {
+	 int total = add(3, 4);
+	 cout << "Answer " << total << '\n';
+
+	
+ }
+_________________________________
+
+
+
+
+
+
+
+
+#include <iostream>
+using std::cout;
+
+int add(int x, int y)
+{
+	return x + y;
+}
+
+int main()
+{
+	int total = add(3, 4);
+	cout << "3 + 4 is " << total << '\n';
+
+	return 0;
+}
+
+__________________________________
+
+
