@@ -1,0 +1,1037 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include<sstream>
+#include <vector>
+
+//for program off
+bool keeprunning = true;
+//for program off, when it is false the program is turned off
+
+
+
+//this is the window resolution. by default it is 1080x1080 so i can test stuff
+int windowX = 1080;
+int windowY = 1080;
+//this is the window resolution. by default it is 1080x1080 so i can test stuff
+
+//this is for the letterbuffer for text input. it is jus pre-defined so i can use it
+std::string letterbuffer = "";
+//this is for the letterbuffer for text input. it is jus pre-defined so i can use it
+
+
+
+//text stuff
+std::string var1input = "test1";
+
+//dunno what this is for. if you see charactersize below, that is what is used for text size. This can probably be deleted
+int variabletextsize = 65;
+
+//these were used for testing, and I'm pretty sure can be deleted
+double textwidthrec = 0.0;
+double textheightrec = 0.0;
+//
+
+//this changes the height of where the text is on the screen. May need to modify this depending on size, an where the description will go
+int TextX = 40;
+
+//the string for use input. by defualt it starts at "", and gets modified much later.
+std::string userinput = "";
+//this is how much DELAY is used between keystroked for text input. changing it to a lower amount will allow you to type quicker, but you can't hold the button down for long otherwise it will type the letter twice
+double textinputdelaytime = 0.3;
+
+
+//don't think this is ever used and can probably be deleted
+int howmanycomponents = 0;
+//
+
+//this is the character textsize, changing it changes the text size for everything
+double charactersize = 20.0;
+
+
+//component word lengths. These are used to figure out how long each typed component currently is, so that it can be correctly spaced from the other components.
+double component1length = 0.0;
+double component2length = 0.0;
+double component3length = 0.0;
+double component4length = 0.0;
+double component5length = 0.0;
+double component6length = 0.0;
+double component7length = 0.0;
+double component8length = 0.0;
+double component9length = 0.0;
+double component10length = 0.0;
+double component11length = 0.0;
+double component12length = 0.0;
+double component13length = 0.0;
+double component14length = 0.0;
+double component15length = 0.0;
+double component16length = 0.0;
+double component17length = 0.0;
+double component18length = 0.0;
+double component19length = 0.0;
+double component20length = 0.0;
+double component21length = 0.0;
+//
+
+//these are the new component values for the length, because the current double value was waaay to long, 
+double L1 = 0.0;
+double L2 = 0.0;
+double L3 = 0.0;
+double L4 = 0.0;
+double L5 = 0.0;
+double L6 = 0.0;
+double L7 = 0.0;
+double L8 = 0.0;
+double L9 = 0.0;
+double L10 = 0.0;
+double L11 = 0.0;
+double L12 = 0.0;
+double L13 = 0.0;
+double L14 = 0.0;
+double L15 = 0.0;
+double L16 = 0.0;
+double L17 = 0.0;
+double L18 = 0.0;
+double L19 = 0.0;
+double L20 = 0.0;
+double L21 = 0.0;
+//
+
+//component text higher from top. im not currently using this yet TFT = Text From Top
+double TFT = 20.0;
+
+
+//a super important integer, this tells the program which component we are currently editing. Goes from 1-21
+int whichcomponenton = 1;
+//
+
+//these are the textcomponent stuffs. They are super important, they are what displays the text, and holds the information about what the component has
+std::string textcomponent1 = "";
+std::string textcomponent2 = "";
+std::string textcomponent3 = "";
+std::string textcomponent4 = "";
+std::string textcomponent5 = "";
+std::string textcomponent6 = "";
+std::string textcomponent7 = "";
+std::string textcomponent8 = "";
+std::string textcomponent9 = "";
+std::string textcomponent10 = "";
+std::string textcomponent11 = "";
+std::string textcomponent12 = "";
+std::string textcomponent13 = "";
+std::string textcomponent14 = "";
+std::string textcomponent15 = "";
+std::string textcomponent16 = "";
+std::string textcomponent17 = "";
+std::string textcomponent18 = "";
+std::string textcomponent19 = "";
+std::string textcomponent20 = "";
+std::string textcomponent21 = "";
+//
+
+
+//current input is used for moving between different components, so that they don't get erased.
+std::string currentinput = "";
+//this is not currently used, but will probably be used in the future
+std::string lastinput = "";
+
+//this was for testing, and can probably be removed
+std::string component1text = "";
+
+
+//This is for testing the description
+std::string componentdescription = "test";
+//
+
+//these are fore deleting the current text input, which usually deleted the component that is selected
+bool resettextinput = false;
+
+// this is used to move the current component forward and backwards easily.
+bool moveforward = false;
+bool movebackward = false;
+
+int main()
+{
+
+
+
+    std::ifstream firetextfile("descriptions/Fire.txt");
+    std::string firedesc;
+    /*if (firetextfile)
+    {*/
+        std::ostringstream ss;
+        ss << firetextfile.rdbuf();
+        firedesc = ss.str();
+    //}
+
+
+    //testing circle
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+    //
+    
+
+    //the window render, and also the name, and setting the initial window size
+    sf::RenderWindow window(sf::VideoMode(windowX, windowY), "SPELLINFO");
+
+
+    //this is the font. Changing this changes the font for everything
+    sf::Font font;
+    if (!font.loadFromFile("fonts/arial.ttf"))
+    {
+        // error...
+    }
+    //this is the font. Changing this changes the font for everything
+
+
+
+    //these are all the different texts for sfml that are pre-defined so I can show them on screen
+    //1
+    sf::Text component1;
+    component1.setFont(font);
+    component1.setString("");
+    component1.setCharacterSize(charactersize);
+    
+    //2
+    sf::Text component2;
+    component2.setFont(font);
+    component2.setString("");
+    component2.setCharacterSize(charactersize);
+
+    //3
+    sf::Text component3;
+    component3.setFont(font);
+    component3.setString("");
+    component3.setCharacterSize(charactersize);
+    //4
+    sf::Text component4;
+    component4.setFont(font);
+    component4.setString("");
+    component4.setCharacterSize(charactersize);
+    //5
+    sf::Text component5;
+    component5.setFont(font);
+    component5.setString("");
+    component5.setCharacterSize(charactersize);
+    //6
+    sf::Text component6;
+    component6.setFont(font);
+    component6.setString("");
+    component6.setCharacterSize(charactersize);
+    //7
+    sf::Text component7;
+    component7.setFont(font);
+    component7.setString("");
+    component7.setCharacterSize(charactersize);
+    //8
+    sf::Text component8;
+    component8.setFont(font);
+    component8.setString("");
+    component8.setCharacterSize(charactersize);
+    //9
+    sf::Text component9;
+    component9.setFont(font);
+    component9.setString("");
+    component9.setCharacterSize(charactersize);
+    //10
+    sf::Text component10;
+    component10.setFont(font);
+    component10.setString("");
+    component10.setCharacterSize(charactersize);
+    //11
+    sf::Text component11;
+    component11.setFont(font);
+    component11.setString("");
+    component11.setCharacterSize(charactersize);
+    //12
+    sf::Text component12;
+    component12.setFont(font);
+    component12.setString("");
+    component12.setCharacterSize(charactersize);
+    //13
+    sf::Text component13;
+    component13.setFont(font);
+    component13.setString("");
+    component13.setCharacterSize(charactersize);
+    //14
+    sf::Text component14;
+    component14.setFont(font);
+    component14.setString("");
+    component14.setCharacterSize(charactersize);
+    //15
+    sf::Text component15;
+    component15.setFont(font);
+    component15.setString("");
+    component15.setCharacterSize(charactersize);
+    //16
+    sf::Text component16;
+    component16.setFont(font);
+    component16.setString("");
+    component16.setCharacterSize(charactersize);
+    //17
+    sf::Text component17;
+    component17.setFont(font);
+    component17.setString("");
+    component17.setCharacterSize(charactersize);
+    //18
+    sf::Text component18;
+    component18.setFont(font);
+    component18.setString("");
+    component18.setCharacterSize(charactersize);
+    //19
+    sf::Text component19;
+    component19.setFont(font);
+    component19.setString("");
+    component19.setCharacterSize(charactersize);
+    //20
+    sf::Text component20;
+    component20.setFont(font);
+    component20.setString("");
+    component20.setCharacterSize(charactersize);
+    //21
+    sf::Text component21;
+    component21.setFont(font);
+    component21.setString("");
+    component21.setCharacterSize(charactersize);
+    //these are all the different texts for sfml that are pre-defined so I can show them on screen
+
+
+
+
+
+
+    //This is for the description at the bottom
+    sf::Text Description;
+    Description.setFont(font);
+    Description.setString("");
+    Description.setCharacterSize(charactersize);
+
+
+
+
+
+
+
+
+    //this clock is used for the text input primarily. I don't think anything is bound to it.
+    sf::Clock inputclock;
+    inputclock.restart();
+    //this clock is used for the text input primarily. I don't think anything is bound to it.
+
+
+    while (keeprunning == true)
+    {
+        //more clock crap
+        sf::Time Elapsed1 = inputclock.getElapsedTime();
+        //more clock crap
+
+
+        //this does some biz where if the window is closed, the other biz closes
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        //this does some biz where if the window is closed, the other biz closes
+
+
+
+        //this sets the window size. This can be modified on the fly if I figure out how to do this. Otherwise its just bound to windowX and windowY
+        window.setSize(sf::Vector2u(windowX, windowY));
+        //this sets the window size. This can be modified on the fly if I figure out how to do this. Otherwise its just bound to windowX and windowY
+
+
+
+
+        //turn off program
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
+        {
+            keeprunning = false;
+        }
+        //
+        //OLD Component length to space things correctly
+        /*component1length = component1.getLocalBounds().width;
+        component2length = component2.getLocalBounds().width;
+        component3length = component3.getLocalBounds().width;
+        component4length = component4.getLocalBounds().width;
+        component5length = component5.getLocalBounds().width;
+        component6length = component6.getLocalBounds().width;
+        component7length = component7.getLocalBounds().width;
+        component8length = component8.getLocalBounds().width;
+        component9length = component9.getLocalBounds().width;
+        component10length = component10.getLocalBounds().width;
+        component11length = component11.getLocalBounds().width;
+        component12length = component12.getLocalBounds().width;
+        component13length = component13.getLocalBounds().width;
+        component14length = component14.getLocalBounds().width;
+        component15length = component15.getLocalBounds().width;
+        component16length = component16.getLocalBounds().width;
+        component17length = component17.getLocalBounds().width;
+        component18length = component18.getLocalBounds().width;
+        component19length = component19.getLocalBounds().width;
+        component20length = component20.getLocalBounds().width;
+        component21length = component21.getLocalBounds().width;*/
+        //
+
+        //these are the newcomponent lengths to space things. They are alot shorter, so its easier to read, and code
+        L1 = component1.getLocalBounds().width;
+        L2 = component2.getLocalBounds().width;
+        L3 = component3.getLocalBounds().width;
+        L4 = component4.getLocalBounds().width;
+        L5 = component5.getLocalBounds().width;
+        L6 = component6.getLocalBounds().width;
+        L7 = component7.getLocalBounds().width;
+        L8 = component8.getLocalBounds().width;
+        L9 = component9.getLocalBounds().width;
+        L10 = component10.getLocalBounds().width;
+        L11 = component11.getLocalBounds().width;
+        L12 = component12.getLocalBounds().width;
+        L13 = component13.getLocalBounds().width;
+        L14 = component14.getLocalBounds().width;
+        L15 = component15.getLocalBounds().width;
+        L16 = component16.getLocalBounds().width;
+        L17 = component17.getLocalBounds().width;
+        L18 = component18.getLocalBounds().width;
+        L19 = component19.getLocalBounds().width;
+        L20 = component20.getLocalBounds().width;
+        L21 = component21.getLocalBounds().width;
+
+
+        //these set the position of the different components, setting them the correct size from each other, so that there is not overlap, and there is a small space between each one
+        component1.setPosition(20, 20);
+        component2.setPosition((L1 + 30), 20);
+        component3.setPosition((L1 + L2 + 40), 20);
+        component4.setPosition((L1 + L2 + L3 + 50), 20);
+        component5.setPosition((L1 + L2 + L3 + L4 + 60), 20);
+        component6.setPosition((L1 + L2 + L3 + L4 + L5 + 70), 20);
+        component7.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + 80), 20);
+        component8.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + 90), 20);
+        component9.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + 100), 20);
+        component10.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + 110), 20);
+        component11.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + 120), 20);
+        component12.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + 130), 20);
+        component13.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + 140), 20);
+        component14.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + L13 + 150), 20);
+        component15.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + L13 + L14 + 160), 20);
+        component16.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + L13 + L14 + L15 + 170), 20);
+        component17.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + L13 + L14 + L15 + L16 + 180), 20);
+        component18.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + L13 + L14 + L15 + L16 + L17 + 190), 20);
+        component19.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + L13 + L14 + L15 + L16 + L17 + L18 + 200), 20);
+        component20.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + L13 + L14 + L15 + L16 + L17 + L18 + L19 + 210), 20);
+        component21.setPosition((L1 + L2 + L3 + L4 + L5 + L6 + L7 + L8 + L9 + L10 + L11 + L12 + L13 + L14 + L15 + L16 + L17 + L18 + L19 + L20 + 220), 20);
+
+
+
+
+
+
+        //for the Description
+        Description.setPosition(20, 80);
+
+
+        //this is keyboard crap. The delaytime of allowed keyboard presses can be changed above
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "A";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::B) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "B";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::C) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "C";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "D";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::E) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "E";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::F) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "F";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::G) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "G";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::H) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "H";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::I) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "I";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::J) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "J";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::K) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "K";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::L) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "L";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::M) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "M";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::N) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "N";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::O) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "O";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::P) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "P";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Q) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "Q";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::R) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "R";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "S";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::T) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "T";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::U) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "U";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "V";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "W";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::X) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "X";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Y) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "Y";
+            inputclock.restart();
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Z) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            letterbuffer = "Z";
+            inputclock.restart();
+        }
+        //this is keyboard crap. The delaytime of allowed keyboard presses can be changed above
+
+
+
+
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+        {
+            if (currentinput == "IGNI")
+            {
+                /*firetxt >> componentdescription;
+                lastinput = currentinput;
+                moveforward = true;*/
+            }
+
+            
+            
+        }
+
+
+        //this puts what is inside the letterbuffer from the keyboard into the current input, and then clears the letter buffer. Without this it spams letters into the input
+        if (letterbuffer != "")
+        {
+            currentinput = currentinput + letterbuffer;
+            letterbuffer = "";
+            
+        }
+        //this puts what is inside the letterbuffer from the keyboard into the current input, and then clears the letter buffer. Without this it spams letters into the input
+
+       
+        
+
+
+
+
+        //these are buttons to move the selected component forwards and backwards
+         if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            moveforward = true;
+            
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            movebackward = true;
+            
+        }
+        //these are buttons to move the selected component forwards and backwards
+
+       
+
+        //this moves which component is selected fowards
+        if (moveforward == true)
+        {
+            whichcomponenton = whichcomponenton + 1;
+
+            if (whichcomponenton == 1)
+            {
+                currentinput = textcomponent1;
+            }
+            if (whichcomponenton == 2)
+            {
+                currentinput = textcomponent2;
+            }
+            if (whichcomponenton == 3)
+            {
+                currentinput = textcomponent3;
+            }
+            if (whichcomponenton == 4)
+            {
+                currentinput = textcomponent4;
+            }
+            if (whichcomponenton == 5)
+            {
+                currentinput = textcomponent5;
+            }
+            if (whichcomponenton == 6)
+            {
+                currentinput = textcomponent6;
+            }
+            if (whichcomponenton == 7)
+            {
+                currentinput = textcomponent7;
+            }
+            if (whichcomponenton == 8)
+            {
+                currentinput = textcomponent8;
+            }
+            if (whichcomponenton == 9)
+            {
+                currentinput = textcomponent9;
+            }
+            if (whichcomponenton == 10)
+            {
+                currentinput = textcomponent10;
+            }
+            if (whichcomponenton == 11)
+            {
+                currentinput = textcomponent11;
+            }
+            if (whichcomponenton == 12)
+            {
+                currentinput = textcomponent12;
+            }
+            if (whichcomponenton == 13)
+            {
+                currentinput = textcomponent13;
+            }
+            if (whichcomponenton == 14)
+            {
+                currentinput = textcomponent14;
+            }
+            if (whichcomponenton == 15)
+            {
+                currentinput = textcomponent15;
+            }
+            if (whichcomponenton == 16)
+            {
+                currentinput = textcomponent16;
+            }
+            if (whichcomponenton == 17)
+            {
+                currentinput = textcomponent17;
+            }
+            if (whichcomponenton == 18)
+            {
+                currentinput = textcomponent18;
+            }
+            if (whichcomponenton == 19)
+            {
+                currentinput = textcomponent19;
+            }
+            if (whichcomponenton == 20)
+            {
+                currentinput = textcomponent20;
+            }
+            if (whichcomponenton == 21)
+            {
+                currentinput = textcomponent21;
+            }
+
+
+            inputclock.restart();
+            moveforward = false;
+        }
+        //this moves which component is selected fowards
+
+
+
+
+
+         //this sets the current input to the textcomponent we are on, otherwise the text component gets erased everytime which is bad.
+        if (movebackward == true)
+        {
+            whichcomponenton = whichcomponenton - 1;
+
+           
+            if (whichcomponenton == 1)
+            {
+                currentinput = textcomponent1;
+            }
+            if (whichcomponenton == 2)
+            {
+                currentinput = textcomponent2;
+            }
+            if (whichcomponenton == 3)
+            {
+                currentinput = textcomponent3;
+            }
+            if (whichcomponenton == 4)
+            {
+                currentinput = textcomponent4;
+            }
+            if (whichcomponenton == 5)
+            {
+                currentinput = textcomponent5;
+            }
+            if (whichcomponenton == 6)
+            {
+                currentinput = textcomponent6;
+            }
+            if (whichcomponenton == 7)
+            {
+                currentinput = textcomponent7;
+            }
+            if (whichcomponenton == 8)
+            {
+                currentinput = textcomponent8;
+            }
+            if (whichcomponenton == 9)
+            {
+                currentinput = textcomponent9;
+            }
+            if (whichcomponenton == 10)
+            {
+                currentinput = textcomponent10;
+            }
+            if (whichcomponenton == 11)
+            {
+                currentinput = textcomponent11;
+            }
+            if (whichcomponenton == 12)
+            {
+                currentinput = textcomponent12;
+            }
+            if (whichcomponenton == 13)
+            {
+                currentinput = textcomponent13;
+            }
+            if (whichcomponenton == 14)
+            {
+                currentinput = textcomponent14;
+            }
+            if (whichcomponenton == 15)
+            {
+                currentinput = textcomponent15;
+            }
+            if (whichcomponenton == 16)
+            {
+                currentinput = textcomponent16;
+            }
+            if (whichcomponenton == 17)
+            {
+                currentinput = textcomponent17;
+            }
+            if (whichcomponenton == 18)
+            {
+                currentinput = textcomponent18;
+            }
+            if (whichcomponenton == 19)
+            {
+                currentinput = textcomponent19;
+            }
+            if (whichcomponenton == 20)
+            {
+                currentinput = textcomponent20;
+            }
+            if (whichcomponenton == 21)
+            {
+                currentinput = textcomponent21;
+            }
+            
+            resettextinput = true;
+            inputclock.restart();
+            movebackward = false;
+        }
+        //this sets the current input to the textcomponent we are on, otherwise the text component gets erased everytime which is bad.
+
+
+
+        
+        //textreset
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace) & (inputclock.getElapsedTime() >= sf::seconds(textinputdelaytime))))
+        {
+            currentinput = "";
+            
+            inputclock.restart();
+        }
+        //textreset
+
+
+        //applying the current intput to the visible component
+        if (whichcomponenton == 1)
+        {
+
+            textcomponent1 = currentinput;
+
+        }
+        if (whichcomponenton == 2)
+        {
+
+            textcomponent2 = currentinput;
+
+        }
+        if (whichcomponenton == 3)
+        {
+
+            textcomponent3 = currentinput;
+
+        }
+        if (whichcomponenton == 4)
+        {
+
+            textcomponent4 = currentinput;
+
+        }
+        if (whichcomponenton == 5)
+        {
+
+            textcomponent5 = currentinput;
+
+        }
+        if (whichcomponenton == 6)
+        {
+
+            textcomponent6 = currentinput;
+
+        }
+        if (whichcomponenton == 7)
+        {
+
+            textcomponent7 = currentinput;
+
+        }
+        if (whichcomponenton == 8)
+        {
+
+            textcomponent8 = currentinput;
+
+        }
+        if (whichcomponenton == 9)
+        {
+
+            textcomponent9 = currentinput;
+
+        }
+        if (whichcomponenton == 10)
+        {
+
+            textcomponent10 = currentinput;
+
+        }
+        if (whichcomponenton == 11)
+        {
+
+            textcomponent11 = currentinput;
+
+        }
+        if (whichcomponenton == 12)
+        {
+
+            textcomponent12 = currentinput;
+
+        }
+        if (whichcomponenton == 13)
+        {
+
+            textcomponent13 = currentinput;
+
+        }
+        if (whichcomponenton == 14)
+        {
+
+            textcomponent14 = currentinput;
+
+        }
+        if (whichcomponenton == 15)
+        {
+
+            textcomponent15 = currentinput;
+
+        }
+        if (whichcomponenton == 16)
+        {
+
+            textcomponent16 = currentinput;
+
+        }
+        if (whichcomponenton == 17)
+        {
+
+            textcomponent17 = currentinput;
+
+        }
+        if (whichcomponenton == 18)
+        {
+
+            textcomponent18 = currentinput;
+
+        }
+        if (whichcomponenton == 19)
+        {
+
+            textcomponent19 = currentinput;
+
+        }
+        if (whichcomponenton == 20)
+        {
+
+            textcomponent20 = currentinput;
+
+        }
+        if (whichcomponenton == 21)
+        {
+
+            textcomponent21 = currentinput;
+
+        }
+        //applying the current intput to the visible component
+
+
+
+
+        //not below zero or above 21
+        if (whichcomponenton < 1)
+        {
+            whichcomponenton = 1;
+        }
+        if (whichcomponenton > 21)
+        {
+            whichcomponenton = 21;
+        }
+        //not below zero this sets it back so it can't go above.
+
+     
+
+        component1.setString(textcomponent1);
+        component2.setString(textcomponent2);
+        component3.setString(textcomponent3);
+        component4.setString(textcomponent4);
+        component5.setString(textcomponent5);
+        component6.setString(textcomponent6);
+        component7.setString(textcomponent7);
+        component8.setString(textcomponent8);
+        component9.setString(textcomponent9);
+        component10.setString(textcomponent10);
+        component11.setString(textcomponent11);
+        component12.setString(textcomponent12);
+        component13.setString(textcomponent13);
+        component14.setString(textcomponent14);
+        component15.setString(textcomponent15);
+        component16.setString(textcomponent16);
+        component17.setString(textcomponent17);
+        component18.setString(textcomponent18);
+        component19.setString(textcomponent19);
+        component20.setString(textcomponent20);
+        component21.setString(textcomponent21);
+
+
+
+
+
+
+
+        Description.setString(firedesc);
+
+
+
+
+
+
+
+        window.clear();
+        //window.draw(shape);
+        window.draw(component1);
+        window.draw(component2);
+        window.draw(component3);
+        window.draw(component4);
+        window.draw(component5);
+        window.draw(component6);
+        window.draw(component7);
+        window.draw(component8);
+        window.draw(component9);
+        window.draw(component10);
+        window.draw(component11);
+        window.draw(component12);
+        window.draw(component13);
+        window.draw(component14);
+        window.draw(component15);
+        window.draw(component16);
+        window.draw(component17);
+        window.draw(component18);
+        window.draw(component19);
+        window.draw(component20);
+        window.draw(component21);
+        window.draw(Description);
+
+        window.display();
+    }
+
+    return 0;
+}
+
+   
