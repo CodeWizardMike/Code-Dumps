@@ -1,0 +1,49 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(800, 800), "DrawMe");
+    
+    sf::CircleShape draw1(5.f);
+    double MouseActiveX;
+    double MouseActiveY;
+    int framerate = 1;
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        MouseActiveX = sf::Mouse::getPosition(window).x;
+       MouseActiveY = sf::Mouse::getPosition(window).y;
+       if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+       {
+           draw1.setPosition(MouseActiveX, MouseActiveY);
+       }
+        
+       if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+       {
+           window.clear();
+       }
+
+       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+       {
+           framerate = framerate - 1;
+       }
+       
+       if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+       {
+           framerate = framerate + 1;
+       }
+       window.setFramerateLimit(framerate);
+        window.draw(draw1);
+        window.display();
+        std::cout << framerate << std::endl;
+    }
+
+    return 0;
+}
