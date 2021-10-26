@@ -13,20 +13,24 @@ double Player_Window_Y = 1920.0;
 double Player_Window_Pos_X = 0.0;
 double Player_Window_Pos_Y = 0.0;
 
-//this is the size for the DM window, it right now is a square.
 double DM_Window_X = 1000.0;
 double DM_Window_Y = 1000.0;
+
 
 bool KeepRunning = true;
 
 
-//this is how much DELAY is used between keystroked for text input. changing it to a lower amount will allow you to type quicker, but you 
-//can't hold the button down for long otherwise it will type the letter twice
-double textinputdelaytime = 0.3;
+double textclock = 0.0;
+double textclock_increase = 0.005;
+bool consoleonoff = false;
+
+double ConsoleWidth = 20;
+double ConsoleHeight = 20;
 
 
-
-
+bool consolemode = false;
+std::string Console_Input = "";
+std::string Console_Search = "Nothing";
 
 int main()
 {
@@ -38,6 +42,11 @@ int main()
 
 
     //this code is for impomptu map inputs (i might faze this out)
+
+
+
+
+    
 
 
 
@@ -64,9 +73,42 @@ int main()
     Player_Window_Pos_X = 832;
     Player_Window_Pos_Y = 1080;
 
+
+
+    // <Font>
+
+    sf::Font font;
+    if (!font.loadFromFile("fonts/arial.ttf"))
+    {
+        // error...
+    }
+
+    // <Font>
+  
+
+
+
+
     //here is the main start loop for the main program.
     while (KeepRunning == true)
     {
+        //myclock
+        textclock = textclock + textclock_increase;
+
+
+
+        sf::Text Console_View;
+        Console_View.setFont(font);
+        Console_View.setString(Console_Input);
+        Console_View.setCharacterSize(30);
+        Console_View.setFillColor(sf::Color::Black);
+        //Console_View.setStyle(sf::Text::Bold);
+        ConsoleWidth = Console_View.getLocalBounds().width;
+        ConsoleHeight = Console_View.getLocalBounds().height;
+        //Console.setOrigin((textwidth / 2), (textheight / 2));
+        Console_View.setPosition(10, 900);
+
+
 
         //Without these events, both the player and DM window freeze and are unable to be interacted with.
         sf::Event event;
@@ -82,88 +124,328 @@ int main()
                 Player_View.close();
         }
 
-        
+     
 
-        
 
-        //testing for loading a picture into the thingy
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde)) & (textclock > 1.0) & (consolemode == false))
         {
-
+            consolemode = true;
+            textclock = 0.0;
+            std::cout << "consolemodeon" << std::endl;
+        }
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde)) & (textclock > 1.0) & (consolemode == true))
+        {
+            consolemode = false;
+            textclock = 0.0;
+            std::cout << "consolemodeoff" << std::endl;
         }
 
 
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+        if (consolemode == true)
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            
+
+
+            //all the keyboard inputs for letters
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) & (textclock > 1))
             {
-                Player_Window_Pos_Y = Player_Window_Pos_Y - 0.1;
+                Console_Input = "";
+                textclock = 0;
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) & (textclock > 1))
             {
-                Player_Window_Pos_Y = Player_Window_Pos_Y + 0.1;
+                Console_Input = Console_Input + "Q";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) & (textclock > 1))
             {
-                Player_Window_Pos_X = Player_Window_Pos_X - 0.1;
+                Console_Input = Console_Input + "W";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::E)) & (textclock > 1))
             {
-                Player_Window_Pos_X = Player_Window_Pos_X + 0.1;
+                Console_Input = Console_Input + "E";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
             }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::R)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "R";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::T)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "T";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "Y";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::U)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "U";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::I)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "I";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::O)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "O";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::P)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "P";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "A";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "S";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "D";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::F)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "F";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::G)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "G";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::H)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "H";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::J)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "J";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::K)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "K";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::L)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "L";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "Z";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::X)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "X";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::C)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "C";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::V)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "V";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::B)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "B";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::N)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "N";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::M)) & (textclock > 1))
+            {
+                Console_Input = Console_Input + "M";
+                textclock = 0;
+                std::cout << Console_Input << std::endl;
+
+            }
+            //all the keyboard inputs for letters
+
+
+
+
+            if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) & (textclock > 1))
+            {
+
+                if (Console_Input == "TEST")
+                {
+                    Console_Input = "";
+                    textclock = 0;
+                    std::cout << "TESTWORKS" << std::endl;
+                }
+                if (Console_Input == "QUIT")
+                {
+                    KeepRunning = false;
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+
+            /// This is for moving the player window around
+          
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                {
+                    Player_Window_Pos_Y = Player_Window_Pos_Y - 0.1;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                {
+                    Player_Window_Pos_Y = Player_Window_Pos_Y + 0.1;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                {
+                    Player_Window_Pos_X = Player_Window_Pos_X - 0.1;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                {
+                    Player_Window_Pos_X = Player_Window_Pos_X + 0.1;
+                }
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                {
+                    Player_Window_Pos_Y = Player_Window_Pos_Y - 0.01;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                {
+                    Player_Window_Pos_Y = Player_Window_Pos_Y + 0.01;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                {
+                    Player_Window_Pos_X = Player_Window_Pos_X - 0.01;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                {
+                    Player_Window_Pos_X = Player_Window_Pos_X + 0.01;
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+                {
+
+                    std::cout << "X= " << Player_Window_Pos_X << " Y= " << Player_Window_Pos_Y << std::endl;
+
+                }
+            }
+            /// This is for moving the player window around
+
+
+
+
+
+
+            
         }
 
-               if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
-               {
-                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                   {
-                       Player_Window_Pos_Y = Player_Window_Pos_Y - 0.01;
-                   }
-                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                   {
-                       Player_Window_Pos_Y = Player_Window_Pos_Y + 0.01;
-                   }
-                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                   {
-                       Player_Window_Pos_X = Player_Window_Pos_X - 0.01;
-                   }
-                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                   {
-                       Player_Window_Pos_X = Player_Window_Pos_X + 0.01;
-                   }
-
-                   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-                   {
-                  
-                       std::cout << "X= " << Player_Window_Pos_X << " Y= " << Player_Window_Pos_Y << std::endl;
-
-                   }
-               }
 
                Player_View.setPosition(sf::Vector2i(Player_Window_Pos_X, Player_Window_Pos_Y));
 
 
+               
 
-
-               if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-               {
-                   KeepRunning = false;
-               }
-
-
+               
 
         DM_View.clear();
+        
         DM_View.draw(FullScreenShape);
+        DM_View.draw(Console_View);
         DM_View.display();
 
         Player_View.clear();
         Player_View.draw(FullScreenShape);
         Player_View.display();
 
+       
 
 
-
+        
     }
 
 
@@ -172,3 +454,5 @@ int main()
 
 	return 0;
 }
+
+
